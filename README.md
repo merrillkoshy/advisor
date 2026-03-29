@@ -1,0 +1,5 @@
+The goal is to build a formation advisor for a mobile strategy game. Given an opponent's squad composition, the tool recommends the optimal counter formation and explains why, using a layered probability engine that factors in unit type matchups, hero skills and synergies, damage types, and formation bonuses. The output is a confidence tier with a human readable coaching explanation, not a false precision percentage.
+
+For the stack I chose React with TypeScript and Vite on the frontend, NestJS on the backend, Prisma 7 as the ORM, and PostgreSQL as the database. Locally everything runs in Docker.
+
+The data model is built around three core entities. Heroes with base stats, Skills with type, priority, cooldown and target information, and SkillEffects which store every scaling value as individual rows keyed against a universal stat dictionary. That dictionary is the backbone of the engine, every modifier in the game, damage percentages, shields, debuffs, crowd control, maps to a defined key so the engine speaks one consistent language across all heroes.

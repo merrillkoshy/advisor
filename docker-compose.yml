@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: lastwar
+      POSTGRES_PASSWORD: lastwar
+      POSTGRES_DB: lastwar
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    command: postgres -c ssl=off
+
+volumes:
+  pgdata:
