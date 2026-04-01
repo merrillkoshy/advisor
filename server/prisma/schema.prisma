@@ -1,16 +1,32 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
 }
 
-generator client {
-  provider = "prisma-client"
-  output   = "./generated"
+// ─── STAT DICTIONARY ─────────────────────────────────────────────────────────
+
+model StatKey {
+  id                  Int                     @id @default(autoincrement())
+  key                 String                  @unique
+  description         String
+  category            String
+  valueType           String // "float" | "int" | "bool"
+  effects             SkillEffect[]
+  techValues          TechValue[]
+  decorationValues    DecorationValue[]
+  cosmeticValues      CosmeticValue[]
+  droneValues         DroneValue[]
+  overlordValues      OverlordValue[]
+  unitValues          UnitValue[]
+  wohValues           WallOfHonorValue[]
+  tacticsValues       TacticsCardValue[]
+  droneComponentStats DroneComponentStatKey[]
 }
+
+// ─── HEROES ──────────────────────────────────────────────────────────────────
 
 model Hero {
   id        Int      @id @default(autoincrement())
@@ -32,7 +48,7 @@ model Skill {
   id          Int           @id @default(autoincrement())
   heroId      Int
   hero        Hero          @relation(fields: [heroId], references: [id])
-  type        String
+  type        String // ACTIVE | PASSIVE | ULTIMATE
   name        String
   priority    Int
   description String
@@ -49,8 +65,214 @@ model SkillEffect {
   id        Int      @id @default(autoincrement())
   skillId   Int
   skill     Skill    @relation(fields: [skillId], references: [id])
-  level     Int
-  statKey   String
+  statKeyId Int
+  statKey   StatKey  @relation(fields: [statKeyId], references: [id])
+  level     Int // 1 | 20 | 40
   value     Float?
   boolValue Boolean?
+}
+
+// ─── OVERLORD ────────────────────────────────────────────────────────────────
+
+model OverlordClass {
+  id               Int    @id @default(autoincrement())
+  level            Int    @unique
+  className        String
+  overlordAtk      Int
+  overlordDef      Int
+  overlordHp       Int
+  overlordHpBoost  Float?
+  overlordAtkBoost Float?
+  overlordDefBoost Float?
+}
+
+model OverlordSkill {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+  maxStars    Int     @default(10)
+}
+
+// ─── DRONE ───────────────────────────────────────────────────────────────────
+
+model DroneComponent {
+  id          Int                     @id @default(autoincrement())
+  name        String                  @unique
+  description String
+  maxLevel    Int                     @default(12)
+  statKeys    DroneComponentStatKey[]
+}
+
+model DroneComponentStatKey {
+  id               Int            @id @default(autoincrement())
+  droneComponentId Int
+  droneComponent   DroneComponent @relation(fields: [droneComponentId], references: [id])
+  statKeyId        Int
+  statKey          StatKey        @relation(fields: [statKeyId], references: [id])
+}
+
+// ─── UNIT TROOP LOOKUP ───────────────────────────────────────────────────────
+
+model UnitTroopLevel {
+  id         Int @id @default(autoincrement())
+  troopLevel Int @unique
+  unitPower  Int
+}
+
+// ─── PLAYER MODULE: TECH ─────────────────────────────────────────────────────
+
+model TechProfile {
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  values    TechValue[]
+}
+
+model TechValue {
+  id        Int         @id @default(autoincrement())
+  profileId Int
+  profile   TechProfile @relation(fields: [profileId], references: [id])
+  statKeyId Int
+  statKey   StatKey     @relation(fields: [statKeyId], references: [id])
+  value     Float
+}
+
+// ─── PLAYER MODULE: DECORATIONS ──────────────────────────────────────────────
+
+model DecorationProfile {
+  id        Int               @id @default(autoincrement())
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  values    DecorationValue[]
+}
+
+model DecorationValue {
+  id        Int               @id @default(autoincrement())
+  profileId Int
+  profile   DecorationProfile @relation(fields: [profileId], references: [id])
+  statKeyId Int
+  statKey   StatKey           @relation(fields: [statKeyId], references: [id])
+  value     Float
+}
+
+// ─── PLAYER MODULE: COSMETICS ────────────────────────────────────────────────
+
+model CosmeticProfile {
+  id        Int             @id @default(autoincrement())
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  values    CosmeticValue[]
+}
+
+model CosmeticValue {
+  id        Int             @id @default(autoincrement())
+  profileId Int
+  profile   CosmeticProfile @relation(fields: [profileId], references: [id])
+  statKeyId Int
+  statKey   StatKey         @relation(fields: [statKeyId], references: [id])
+  value     Float
+}
+
+// ─── PLAYER MODULE: DRONE ────────────────────────────────────────────────────
+
+model DroneProfile {
+  id               Int          @id @default(autoincrement())
+  droneLevel       Int
+  combatBoostLevel Int
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  values           DroneValue[]
+}
+
+model DroneValue {
+  id        Int          @id @default(autoincrement())
+  profileId Int
+  profile   DroneProfile @relation(fields: [profileId], references: [id])
+  statKeyId Int
+  statKey   StatKey      @relation(fields: [statKeyId], references: [id])
+  value     Float
+}
+
+// ─── PLAYER MODULE: OVERLORD ─────────────────────────────────────────────────
+
+model OverlordProfile {
+  id        Int             @id @default(autoincrement())
+  level     Int
+  rank      String
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  values    OverlordValue[]
+}
+
+model OverlordValue {
+  id        Int             @id @default(autoincrement())
+  profileId Int
+  profile   OverlordProfile @relation(fields: [profileId], references: [id])
+  statKeyId Int
+  statKey   StatKey         @relation(fields: [statKeyId], references: [id])
+  value     Float
+}
+
+// ─── PLAYER MODULE: UNITS ────────────────────────────────────────────────────
+
+model UnitProfile {
+  id         Int         @id @default(autoincrement())
+  troopLevel Int
+  quantity   Int
+  morale     Float
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  values     UnitValue[]
+}
+
+model UnitValue {
+  id        Int         @id @default(autoincrement())
+  profileId Int
+  profile   UnitProfile @relation(fields: [profileId], references: [id])
+  statKeyId Int
+  statKey   StatKey     @relation(fields: [statKeyId], references: [id])
+  value     Float
+}
+
+// ─── PLAYER MODULE: WALL OF HONOR ────────────────────────────────────────────
+
+model WallOfHonorProfile {
+  id           Int                @id @default(autoincrement())
+  airCount     Int
+  airLevel     Int
+  tankCount    Int
+  tankLevel    Int
+  missileCount Int
+  missileLevel Int
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  values       WallOfHonorValue[]
+}
+
+model WallOfHonorValue {
+  id        Int                @id @default(autoincrement())
+  profileId Int
+  profile   WallOfHonorProfile @relation(fields: [profileId], references: [id])
+  statKeyId Int
+  statKey   StatKey            @relation(fields: [statKeyId], references: [id])
+  value     Float
+}
+
+// ─── PLAYER MODULE: TACTICS CARDS ────────────────────────────────────────────
+
+model TacticsCardProfile {
+  id        Int                @id @default(autoincrement())
+  power     Float
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  values    TacticsCardValue[]
+}
+
+model TacticsCardValue {
+  id        Int                @id @default(autoincrement())
+  profileId Int
+  profile   TacticsCardProfile @relation(fields: [profileId], references: [id])
+  statKeyId Int
+  statKey   StatKey            @relation(fields: [statKeyId], references: [id])
+  value     Float
 }
