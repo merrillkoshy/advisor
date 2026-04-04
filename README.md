@@ -10,16 +10,16 @@ Built for friends as an internal tool, and as a portfolio project demonstrating 
 
 ## Stack
 
-| Layer           | Technology                |
-| --------------- | ------------------------- |
-| Frontend        | React + TypeScript (Vite) |
-| Backend         | NestJS                    |
-| ORM             | Prisma 7                  |
-| Database        | PostgreSQL 16             |
-| Local Infra     | Docker                    |
-| Frontend Deploy | Vercel                    |
-| Backend Deploy  | Fly.io                    |
-| Database Deploy | Supabase                  |
+| Layer           | Technology                  |
+| --------------- | --------------------------- |
+| Frontend        | React + TypeScript (Vite)   |
+| Backend         | Java 25 + Spring Boot 3     |
+| ORM             | Spring Data JPA / Hibernate |
+| Database        | PostgreSQL 16               |
+| Local Infra     | Docker                      |
+| Frontend Deploy | Vercel                      |
+| Backend Deploy  | TBD                         |
+| Database Deploy | Supabase                    |
 
 ---
 
@@ -28,20 +28,19 @@ Built for friends as an internal tool, and as a portfolio project demonstrating 
 ```
 lastwar-advisor/
 ├── client/          # React + TypeScript frontend (Vite)
-├── server/          # NestJS backend
-│   ├── prisma/
-│   │   ├── schema.prisma
-│   │   ├── prisma.config.ts
-│   │   ├── seed.ts
-│   │   └── seeds/
-│   │       ├── statKeys.ts
-│   │       ├── heroes.ts
-│   │       └── drone_overlord.ts
+├── server/          # Java Spring Boot backend
 │   └── src/
-│       ├── prisma/      # Global Prisma service and module
-│       ├── heroes/      # Heroes module, service, controller
-│       ├── drone/       # Drone module, service, controller
-│       └── overlord/    # Overlord module, service, controller
+│       └── main/
+│           ├── java/com/lastwar_advisor/server/
+│           │   ├── controller/      # REST controllers
+│           │   ├── entity/          # JPA entities
+│           │   ├── repository/      # Spring Data repositories
+│           │   ├── service/         # Business logic
+│           │   ├── seeder/          # Data seeders, run on startup
+│           │   └── util/            # Constants and shared utilities
+│           └── resources/
+│               ├── application.properties
+│               └── heroes.json
 └── docker-compose.yml
 ```
 
@@ -57,7 +56,9 @@ The engine is built around a universal **stat dictionary** — a `StatKey` table
 
 **Skill** — belongs to a Hero. Has a type (ACTIVE/PASSIVE/ULTIMATE), cooldown, target type, and damage type.
 
-**SkillEffect** — belongs to a Skill. Stores a single numeric or boolean value at a specific skill level (1, 20, 40), keyed against a `StatKey`. This is the strict relational approach to skill scaling — no JSON blobs, no magic strings.
+**SkillEffect** — belongs to a Skill. Stores a single numeric or boolean value at a specific skill level (1, 20, 40), keyed against a `StatKey`.
+
+**Gear** — one of four equipment slots (Gun, Chip, Armor, Radar). Has a base name, mythic name, and base power. Scaling stats are stored in `GearStat` with a base value and increment per 10 levels. Star and mythic unlocks are stored in `GearLevel` with fixed values at levels 50 through 90.
 
 ### Player module pattern
 
@@ -76,63 +77,58 @@ Adding a new modifier to any module is inserting a row, not altering the schema.
 
 ### Prerequisites
 
-- Node.js v22+
+- JDK 25 (Temurin recommended)
 - Docker Desktop
-- npm
+- Maven (or use the included `mvnw` wrapper)
 
 ### Setup
 
-1. Clone the repo and install dependencies:
-
-```bash
-cd server && npm install
-cd ../client && npm install
-```
-
-2. Start the database:
+1. Clone the repo and start the database:
 
 ```bash
 docker compose up -d
 ```
 
-> **Note:** The Docker container runs PostgreSQL on port **5433** to avoid conflicts with any local PostgreSQL instance running on the default port 5432. If you have a local Postgres running, it will silently intercept connections on 5432 — remapping Docker to 5433 is the clean resolution.
+> **Note:** The Docker container runs PostgreSQL on port **5433** to avoid conflicts with any local PostgreSQL instance running on the default port 5432.
 
-3. Create `server/.env`:
+2. Create `server/src/main/resources/application.properties`:
 
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5433/lastwar
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
 ```
-DATABASE_URL="postgresql://lastwar:lastwar@localhost:5433/lastwar?sslmode=disable"
-```
 
-> **Note on `sslmode=disable`:** Prisma 7 migrated from a Rust-based query engine to `node-pg`. This changed SSL defaults — previously invalid SSL certificates were silently ignored, now they cause a `P1010` access denied error. Since the local Docker container runs without SSL, `sslmode=disable` is required in the connection string for local development. Production uses a Supabase connection string with proper SSL.
-
-4. Run migrations:
+3. Start the backend:
 
 ```bash
 cd server
-NODE_TLS_REJECT_UNAUTHORIZED=0 npx prisma migrate dev
+./mvnw spring-boot:run
 ```
 
-> **Note on `NODE_TLS_REJECT_UNAUTHORIZED=0`:** Required for the Prisma CLI in local dev due to the same node-pg SSL behavior described above. This flag is only used for CLI commands, not in application code.
+The app seeds all data automatically on first startup — stat keys, heroes, drone components, overlord classes, and gear. No manual seed step required.
 
-5. Seed the database:
+4. Start the frontend:
 
 ```bash
-NODE_TLS_REJECT_UNAUTHORIZED=0 npx prisma db seed
+cd client && npm install && npm run dev
 ```
 
-This seeds the stat dictionary (99 keys across all game modules), 30 heroes (5 with full skill data), drone components, and overlord classes.
+---
 
-6. Start the backend:
+## Seeding
 
-```bash
-npm run start:dev
-```
+Data is seeded automatically via `DataSeeder` which runs on every startup using Spring Boot's `ApplicationRunner` hook. Each seeder is idempotent — it checks for existing rows before inserting and skips anything already present. Adding new game data means updating the seeder and constants files, not altering the schema.
 
-7. Start the frontend:
+Current seed state:
 
-```bash
-cd ../client && npm run dev
-```
+- 103 StatKeys across all game modules
+- 30 Heroes (5 with full skill and effect data)
+- 6 Drone Components with StatKey links
+- 7 Overlord Classes
+- 4 Gears with scaling stats and star/mythic level unlocks
 
 ---
 
@@ -147,22 +143,11 @@ cd ../client && npm run dev
 
 ---
 
-## Prisma 7 Notes
-
-Prisma 7 introduced several breaking changes from v5/v6 worth documenting:
-
-- **No auto env loading.** The CLI no longer reads `.env` automatically. Use `import "dotenv/config"` explicitly in `prisma.config.ts` and application entry points.
-- **`prisma.config.ts` replaces schema datasource URL.** The database connection URL moves out of `schema.prisma` into `prisma.config.ts` under `datasource.url`.
-- **node-pg replaces Rust engine.** SSL behavior changed. Local Postgres without SSL requires `sslmode=disable` in the connection string.
-- **PrismaClient requires adapter.** The `PrismaClient` constructor now requires a driver adapter (`@prisma/adapter-pg`) to be passed explicitly for runtime connections.
-- **Generated client location.** The client generates to `node_modules/@prisma/client` as before, but instantiation requires the adapter pattern shown in `prisma.service.ts`.
-
----
-
 ## Roadmap
 
 - [ ] Complete skill data for remaining 25 heroes (via admin UI)
-- [ ] Admin UI for hero and skill data entry
+- [ ] Admin UI for hero, skill, and gear data entry
+- [ ] Gear endpoints
 - [ ] Probability engine — type triangle, synergy layers, gear modifiers
 - [ ] Frontend — squad input form, recommendation output, confidence tiers
 - [ ] Scenario module (v2)
