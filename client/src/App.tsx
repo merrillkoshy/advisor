@@ -1,11 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { getHeroes } from "@/api/heroes";
+import { useEffect, useState } from "react";
+import "./App.css";
+import heroImg from "./assets/hero.png";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "./assets/vite.svg";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  const heroesList = async () => {
+    const response = await getHeroes();
+    return response;
+  };
+
+  useEffect(() => {
+    heroesList().then((heroes) => {
+      console.log(heroes);
+    });
+  }, []);
 
   return (
     <>
@@ -115,7 +127,7 @@ function App() {
       <div className="ticks"></div>
       <section id="spacer"></section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

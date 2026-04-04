@@ -1,0 +1,788 @@
+[
+  {
+    "name": "Kimberly",
+    "rank": "UR",
+    "type": "Tank",
+    "tier": "S",
+    "power": 95,
+    "atk": 2200,
+    "def": 3200,
+    "hp": 28000,
+    "spd": 85,
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Energy Assault",
+        "priority": 3,
+        "description": "Fire a rocket at a random enemy, dealing Energy Damage equal to 472% of Attack.",
+        "cooldown_s": 1.35,
+        "target": "random",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": { "atk_percent": 300, "bonus_damage_percent": 0 },
+          "lvl20": { "atk_percent": 380, "bonus_damage_percent": 100 },
+          "lvl40": { "atk_percent": 472, "bonus_damage_percent": 150 }
+        },
+        "key_stats": ["Random Target", "Energy Damage"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Energy Boost",
+        "priority": 1,
+        "description": "Boost this hero's Energy Damage by +30% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": { "energy_damage_percent": 18 },
+          "lvl20": { "energy_damage_percent": 24 },
+          "lvl40": { "energy_damage_percent": 30 }
+        },
+        "key_stats": ["Energy Damage Buff", "Always Active"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Barrage Strike",
+        "priority": 2,
+        "description": "Fire 8 rockets at random enemies each dealing Energy Damage equal to 287% of Attack.",
+        "cooldown_s": 10,
+        "target": "random_multi",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": { "atk_percent": 180, "hit_count": 6 },
+          "lvl20": { "atk_percent": 230, "hit_count": 7 },
+          "lvl40": { "atk_percent": 287, "hit_count": 8 }
+        },
+        "key_stats": ["Multi-Target", "AoE Damage"]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction"]
+      }
+    ]
+  },
+  {
+    "name": "Williams",
+    "rank": "UR",
+    "type": "Tank",
+    "tier": "S",
+    "power": 95,
+    "atk": 1800,
+    "def": 3800,
+    "hp": 32000,
+    "spd": 70,
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Stun Bomb",
+        "priority": 3,
+        "description": "Throws a stun bomb at enemies, dealing damage and stunning targets in the area.",
+        "cooldown_s": 10,
+        "target": "aoe",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": { "atk_percent": null, "stun": true },
+          "lvl20": { "atk_percent": null, "stun": true },
+          "lvl40": { "atk_percent": null, "stun": true }
+        },
+        "key_stats": ["AoE Damage", "Stun", "Crowd Control"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "All-Around Armor",
+        "priority": 1,
+        "description": "Increases Williams' defense and provides damage reduction to all allied units.",
+        "cooldown_s": null,
+        "target": "self_and_allies",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "def_percent": null,
+            "team_damage_reduction_percent": null
+          },
+          "lvl20": { "def_percent": 15, "team_damage_reduction_percent": 8 },
+          "lvl40": { "def_percent": 20, "team_damage_reduction_percent": 12 }
+        },
+        "key_stats": ["Team Defense", "Damage Reduction", "Passive"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Iron Will",
+        "priority": 2,
+        "description": "Activates Iron Will, significantly boosting Williams' survivability and threat generation.",
+        "cooldown_s": 18,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": { "shield_hp_percent": 15, "taunt": true },
+          "lvl20": { "shield_hp_percent": 22, "taunt": true },
+          "lvl40": {
+            "shield_hp_percent": 30,
+            "taunt": true,
+            "enhanced_taunt": true
+          }
+        },
+        "key_stats": ["Shield", "Taunt", "Tank Skill"]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction"]
+      }
+    ]
+  },
+  {
+    "name": "Murphy",
+    "rank": "UR",
+    "type": "Tank",
+    "tier": "S",
+    "power": 95,
+    "atk": 1600,
+    "def": 3500,
+    "hp": 35000,
+    "spd": 65,
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Cannon Fire",
+        "priority": 3,
+        "description": "Fire a cannonball at the enemy, dealing Physical Damage equal to 491% of Attack.",
+        "cooldown_s": 1.35,
+        "target": "single",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": { "atk_percent": 300, "bonus_damage_percent": 0 },
+          "lvl20": { "atk_percent": 400, "bonus_damage_percent": 100 },
+          "lvl40": { "atk_percent": 491, "bonus_damage_percent": 150 }
+        },
+        "key_stats": ["Physical Damage", "Single Target"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Stand Firm",
+        "priority": 2,
+        "description": "Reduce all Damage taken in battle by 17% for front-row units.",
+        "cooldown_s": null,
+        "target": "front_row",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": { "front_row_damage_reduction_percent": null },
+          "lvl20": { "front_row_damage_reduction_percent": 14 },
+          "lvl40": { "front_row_damage_reduction_percent": 17 }
+        },
+        "key_stats": ["Front-Row Buff", "Damage Reduction"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Ironclad Barrier",
+        "priority": 1,
+        "description": "After casting, boosts Physical Damage Reduction of front-row units by 29% for 5 seconds. Upgrades to full team at higher levels.",
+        "cooldown_s": 10,
+        "target": "front_row",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "physical_damage_reduction_percent": null,
+            "duration_s": null
+          },
+          "lvl20": {
+            "physical_damage_reduction_percent": null,
+            "duration_s": 5
+          },
+          "lvl40": {
+            "physical_damage_reduction_percent": 29,
+            "duration_s": 5,
+            "target_upgrade": 0
+          }
+        },
+        "key_stats": ["Physical DR Buff", "Front-Row Priority"]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction"]
+      }
+    ]
+  },
+  {
+    "name": "Marshall",
+    "rank": "UR",
+    "type": "Tank",
+    "tier": "S",
+    "power": 95,
+    "atk": 2000,
+    "def": 2800,
+    "hp": 27000,
+    "spd": 78,
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Triad Harmony",
+        "priority": 1,
+        "description": "Harmonizes the team, healing all allies and boosting their attack for a duration.",
+        "cooldown_s": 12,
+        "target": "all_allies",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": { "team_heal_hp_percent": 8, "team_atk_buff_percent": 8 },
+          "lvl20": { "team_heal_hp_percent": 12, "team_atk_buff_percent": 12 },
+          "lvl40": { "team_heal_hp_percent": 15, "team_atk_buff_percent": 15 }
+        },
+        "key_stats": ["Team Heal", "Team Buff", "Support"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Rapid Start",
+        "priority": 3,
+        "description": "Increases Marshall's attack speed and movement at the start of battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": { "attack_speed_percent": null, "move_speed_percent": null },
+          "lvl20": { "attack_speed_percent": null, "move_speed_percent": null },
+          "lvl40": { "attack_speed_percent": 20, "move_speed_percent": 10 }
+        },
+        "key_stats": ["Attack Speed", "Movement Speed", "Early Game"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Command Strategy",
+        "priority": 2,
+        "description": "Issues commands that reduce damage taken by all allies and increase their defense.",
+        "cooldown_s": 18,
+        "target": "all_allies",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "team_damage_reduction_percent": 10,
+            "team_def_buff_percent": 8
+          },
+          "lvl20": {
+            "team_damage_reduction_percent": 15,
+            "team_def_buff_percent": 12
+          },
+          "lvl40": {
+            "team_damage_reduction_percent": 20,
+            "team_def_buff_percent": 15
+          }
+        },
+        "key_stats": ["Team Defense", "Damage Reduction", "Commander Skill"]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction"]
+      }
+    ]
+  },
+  {
+    "name": "DVA",
+    "rank": "UR",
+    "type": "Aircraft",
+    "tier": "S",
+    "power": 95,
+    "atk": 3800,
+    "def": 1200,
+    "hp": 15000,
+    "spd": 110,
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Vortex Missile",
+        "priority": 2,
+        "description": "Launch a missile at an enemy, dealing Energy Damage equal to 408% of Attack.",
+        "cooldown_s": 1.35,
+        "target": "single",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": { "atk_percent": 250, "bonus_damage_percent": 0 },
+          "lvl20": { "atk_percent": 330, "bonus_damage_percent": 100 },
+          "lvl40": { "atk_percent": 408, "bonus_damage_percent": 150 }
+        },
+        "key_stats": ["Single Target", "Energy Damage"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Armament Upgrade",
+        "priority": 3,
+        "description": "Boost this hero's Crit by +30% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": { "crit_rate_percent": null },
+          "lvl20": { "crit_rate_percent": null },
+          "lvl40": { "crit_rate_percent": 30 }
+        },
+        "key_stats": ["Crit Boost", "Always Active"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Steel Barrage",
+        "priority": 1,
+        "description": "DVA unleashes the ultimate attack on all enemies dealing Energy Damage equal to 718% of Attack.",
+        "cooldown_s": 10,
+        "target": "all_enemies",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": { "atk_percent": 430, "bonus_damage_percent": 0 },
+          "lvl20": { "atk_percent": 580, "bonus_damage_percent": 100 },
+          "lvl40": { "atk_percent": 718, "bonus_damage_percent": 150 }
+        },
+        "key_stats": ["AoE Damage", "All Enemies"]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction"]
+      }
+    ]
+  },
+  {
+    "name": "Monica",
+    "rank": "SSR",
+    "type": "Tank",
+    "tier": "S",
+    "power": 95,
+    "atk": 1600,
+    "def": 2000,
+    "hp": 18000,
+    "spd": 85,
+    "skills": []
+  },
+  {
+    "name": "Stetmann",
+    "rank": "UR",
+    "type": "Tank",
+    "tier": "A",
+    "power": 85,
+    "atk": 2400,
+    "def": 2800,
+    "hp": 26000,
+    "spd": 80,
+    "skills": []
+  },
+  {
+    "name": "Schuyler",
+    "rank": "UR",
+    "type": "Aircraft",
+    "tier": "A",
+    "power": 85,
+    "atk": 3400,
+    "def": 1400,
+    "hp": 16000,
+    "spd": 105,
+    "skills": []
+  },
+  {
+    "name": "Morrison",
+    "rank": "UR",
+    "type": "Aircraft",
+    "tier": "A",
+    "power": 85,
+    "atk": 3600,
+    "def": 1300,
+    "hp": 16000,
+    "spd": 108,
+    "skills": []
+  },
+  {
+    "name": "Lucius",
+    "rank": "UR",
+    "type": "Aircraft",
+    "tier": "A",
+    "power": 85,
+    "atk": 2200,
+    "def": 2600,
+    "hp": 22000,
+    "spd": 95,
+    "skills": []
+  },
+  {
+    "name": "Carlie",
+    "rank": "UR",
+    "type": "Aircraft",
+    "tier": "A",
+    "power": 85,
+    "atk": 2400,
+    "def": 2200,
+    "hp": 20000,
+    "spd": 100,
+    "skills": []
+  },
+  {
+    "name": "Swift",
+    "rank": "UR",
+    "type": "MissileVehicle",
+    "tier": "A",
+    "power": 85,
+    "atk": 3400,
+    "def": 1500,
+    "hp": 16000,
+    "spd": 105,
+    "skills": []
+  },
+  {
+    "name": "Fiona",
+    "rank": "UR",
+    "type": "MissileVehicle",
+    "tier": "A",
+    "power": 85,
+    "atk": 3200,
+    "def": 1400,
+    "hp": 15000,
+    "spd": 100,
+    "skills": []
+  },
+  {
+    "name": "Adam",
+    "rank": "UR",
+    "type": "MissileVehicle",
+    "tier": "A",
+    "power": 85,
+    "atk": 2000,
+    "def": 2600,
+    "hp": 24000,
+    "spd": 80,
+    "skills": []
+  },
+  {
+    "name": "McGregor",
+    "rank": "UR",
+    "type": "MissileVehicle",
+    "tier": "A",
+    "power": 85,
+    "atk": 2600,
+    "def": 2400,
+    "hp": 28000,
+    "spd": 75,
+    "skills": []
+  },
+  {
+    "name": "Mason",
+    "rank": "SSR",
+    "type": "Tank",
+    "tier": "A",
+    "power": 85,
+    "atk": 2000,
+    "def": 2600,
+    "hp": 22000,
+    "spd": 80,
+    "skills": []
+  },
+  {
+    "name": "Violet",
+    "rank": "SSR",
+    "type": "Tank",
+    "tier": "A",
+    "power": 85,
+    "atk": 1800,
+    "def": 2800,
+    "hp": 24000,
+    "spd": 75,
+    "skills": []
+  },
+  {
+    "name": "Scarlett",
+    "rank": "SSR",
+    "type": "Tank",
+    "tier": "A",
+    "power": 85,
+    "atk": 1600,
+    "def": 2800,
+    "hp": 24000,
+    "spd": 78,
+    "skills": []
+  },
+  {
+    "name": "Sarah",
+    "rank": "SSR",
+    "type": "Aircraft",
+    "tier": "A",
+    "power": 85,
+    "atk": 2200,
+    "def": 1800,
+    "hp": 18000,
+    "spd": 95,
+    "skills": []
+  },
+  {
+    "name": "Venom",
+    "rank": "SSR",
+    "type": "MissileVehicle",
+    "tier": "A",
+    "power": 85,
+    "atk": 2600,
+    "def": 1600,
+    "hp": 16000,
+    "spd": 95,
+    "skills": []
+  },
+  {
+    "name": "Richard",
+    "rank": "SSR",
+    "type": "Tank",
+    "tier": "B",
+    "power": 75,
+    "atk": 1900,
+    "def": 2400,
+    "hp": 21000,
+    "spd": 72,
+    "skills": []
+  },
+  {
+    "name": "Elsa",
+    "rank": "SSR",
+    "type": "MissileVehicle",
+    "tier": "B",
+    "power": 75,
+    "atk": 2400,
+    "def": 1400,
+    "hp": 15000,
+    "spd": 95,
+    "skills": []
+  },
+  {
+    "name": "Blaz",
+    "rank": "SSR",
+    "type": "MissileVehicle",
+    "tier": "B",
+    "power": 75,
+    "atk": 2500,
+    "def": 1300,
+    "hp": 14000,
+    "spd": 98,
+    "skills": []
+  },
+  {
+    "name": "Maxwell",
+    "rank": "SSR",
+    "type": "Aircraft",
+    "tier": "B",
+    "power": 75,
+    "atk": 2400,
+    "def": 1400,
+    "hp": 15000,
+    "spd": 100,
+    "skills": []
+  },
+  {
+    "name": "Cage",
+    "rank": "SSR",
+    "type": "Aircraft",
+    "tier": "B",
+    "power": 75,
+    "atk": 2000,
+    "def": 1800,
+    "hp": 16000,
+    "spd": 92,
+    "skills": []
+  },
+  {
+    "name": "Gump",
+    "rank": "SR",
+    "type": "Tank",
+    "tier": "D",
+    "power": 50,
+    "atk": 1200,
+    "def": 1800,
+    "hp": 14000,
+    "spd": 70,
+    "skills": []
+  },
+  {
+    "name": "Loki",
+    "rank": "SR",
+    "type": "Tank",
+    "tier": "D",
+    "power": 50,
+    "atk": 1300,
+    "def": 1600,
+    "hp": 13000,
+    "spd": 72,
+    "skills": []
+  },
+  {
+    "name": "Ambolt",
+    "rank": "SR",
+    "type": "Aircraft",
+    "tier": "D",
+    "power": 50,
+    "atk": 1400,
+    "def": 1200,
+    "hp": 11000,
+    "spd": 90,
+    "skills": []
+  },
+  {
+    "name": "Kane",
+    "rank": "SR",
+    "type": "MissileVehicle",
+    "tier": "D",
+    "power": 50,
+    "atk": 1300,
+    "def": 1400,
+    "hp": 12000,
+    "spd": 80,
+    "skills": []
+  },
+  {
+    "name": "Tesla",
+    "rank": "UR",
+    "type": "MissileVehicle",
+    "tier": "SS",
+    "power": 98,
+    "atk": 3800,
+    "def": 1600,
+    "hp": 16000,
+    "spd": 110,
+    "skills": []
+  }
+]
