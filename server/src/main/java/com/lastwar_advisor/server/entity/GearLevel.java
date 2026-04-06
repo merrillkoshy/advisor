@@ -1,5 +1,7 @@
 package com.lastwar_advisor.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class GearLevel {
     @JoinColumn(name = "stat_key_id")
     private StatKey statKey;
 
+    @JsonBackReference("gear-levels")
     @ManyToOne
     @JoinColumn(name = "gear_id")
     private Gear gear;

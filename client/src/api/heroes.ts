@@ -1,9 +1,7 @@
 import { BACKEND_URL } from "@/constants";
+import type { Hero } from "@/types";
 
-export const getHeroes = async () => {
+export const getHeroes: () => Promise<Hero[]> = async () => {
   const response = await fetch(`${BACKEND_URL}/heroes`);
-  return response;
+  return response.json();
 };
-// http://localhost:3000/heroes
-// http://localhost:3000/drone-components
-// http://localhost:3000/overlord/classes

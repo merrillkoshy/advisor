@@ -3,6 +3,7 @@ package com.lastwar_advisor.server.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lastwar_advisor.server.entity.Hero;
 import com.lastwar_advisor.server.repository.HeroRepository;
@@ -15,7 +16,8 @@ public class HeroService {
         this.repo = repo;
     }
 
+    @Transactional
     public List<Hero> getAll() {
-        return repo.findAll();
+        return repo.findAllWithSkillsAndEffects();
     }
 }

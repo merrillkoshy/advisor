@@ -2,9 +2,13 @@ package com.lastwar_advisor.server.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,6 +32,7 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "hero_id")
     private Hero hero;
@@ -46,8 +51,9 @@ public class Skill {
     @ElementCollection
     private List<String> keyStats;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL)
-    private List<SkillEffect> effects;
+    private Set<SkillEffect> effects;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

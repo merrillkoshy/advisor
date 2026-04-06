@@ -1,5 +1,9 @@
 package com.lastwar_advisor.server.entity;
 
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,10 +25,12 @@ public class Gear {
     private String mythicName;
     private String type;
 
+    @JsonManagedReference("gear-stats")
     @OneToMany(mappedBy = "gear")
-    private java.util.List<GearStat> stats;
+    private Set<GearStat> stats;
 
+    @JsonManagedReference("gear-levels")
     @OneToMany(mappedBy = "gear")
-    private java.util.List<GearLevel> levels;
+    private Set<GearLevel> levels;
 
 }
