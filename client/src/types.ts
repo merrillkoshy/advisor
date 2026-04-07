@@ -15,6 +15,7 @@ type Skill = {
 type Hero = {
   id: number;
   name: string;
+  imageUrl: string | null;
   type: string;
   rank: string;
   tier: string;

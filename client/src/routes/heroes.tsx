@@ -1,15 +1,10 @@
 import { getHeroes } from "@/api/heroes";
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-
-import { Button } from "@/components/ui/button";
+import NoHero from "@/assets/icons/no-hero.svg";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Field,
@@ -17,7 +12,12 @@ import {
   FieldLegend,
   FieldSet,
 } from "@/components/ui/field";
+import { Separator } from "@/components/ui/separator";
 import type { Hero } from "@/types";
+import { rankColorMap, typeIconMap } from "@/utils/typeIconMap";
+import { createFileRoute } from "@tanstack/react-router";
+import { ChevronsRight, Flame, Heart, Shield, Sword } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/heroes")({
   component: HeroesPage,
@@ -42,24 +42,69 @@ function HeroesPage() {
     <div className="w-full mx-auto">
       <FieldSet>
         <FieldLegend variant="label" className="text-center">
-          Hero Details
+          <span className="text-2xl">Heroes</span>
         </FieldLegend>
+        <Separator className="my-4" />
         <FieldGroup className="items-center">
           <div className="grid grid-cols-2 gap-4">
             {heroes.map((hero) => (
               <Field>
-                <Card className="w-full max-w-sm" key={hero.id}>
+                <Card className="w-full max-w-lg min-w-md" key={hero.id}>
                   <CardHeader>
-                    <CardTitle>{hero.name}</CardTitle>
                     <CardDescription>
-                      {`Type: ${hero.type} | Rank: ${hero.rank} | Tier: ${hero.tier}`}
+                      <div className="flex items-start gap-4">
+                        {hero.imageUrl ? (
+                          <img
+                            src={hero.imageUrl}
+                            alt={hero.name}
+                            className="w-16 h-20 object-cover rounded-b-sm"
+                          />
+                        ) : (
+                          <img
+                            src={NoHero}
+                            alt={"No Image Available"}
+                            className="w-16 h-20 object-cover rounded-b-sm"
+                          />
+                        )}
+                        {typeIconMap[hero.type] && (
+                          <img
+                            src={typeIconMap[hero.type]}
+                            alt={hero.type}
+                            className="w-6 h-6 shrink-0"
+                          />
+                        )}
+                        <span className="font-extrabold text-xl text-zinc-800">
+                          {hero.name}
+                        </span>
+                        <p
+                          className={`font-extrabold text-outline text-xl ${rankColorMap[hero.rank] ?? "text-white"}`}
+                        >{`${hero.rank}`}</p>
+                      </div>
                     </CardDescription>
-                    <CardAction>
-                      <Button variant="link">Edit</Button>
-                    </CardAction>
                   </CardHeader>
                   <CardContent>
-                    <p>{`HP: ${hero.hp} | ATK: ${hero.atk} | DEF: ${hero.def} | SPD: ${hero.spd} | Power: ${hero.power}`}</p>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2">
+                        <Heart className="w-6 h-6 shrink-0" />
+                        <span>{`${hero.hp}`}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Sword className="w-6 h-6 shrink-0" />
+                        <span>{`${hero.atk}`}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-6 h-6 shrink-0" />
+                        <span>{`${hero.def}`}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Flame className="w-6 h-6 shrink-0" />
+                        <span>{`${hero.power}`}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <ChevronsRight className="w-6 h-6 shrink-0" />
+                        <span>{`${hero.spd}`}</span>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </Field>

@@ -60,11 +60,12 @@ public class HeroSeeder {
                 .collect(java.util.stream.Collectors.toMap(StatKey::getKey, StatKey::getId));
 
         for (JsonNode heroData : heroes) {
-            if (existingHeroes.contains(heroData.get("name").asText())) { // Skip if hero already exists
-                continue;
-            }
-            Hero hero = new Hero();
+            String name = heroData.get("name").asText();
+            Hero hero = heroRepository.findByName(name).orElse(new Hero());
+
+            JsonNode imageUrl = heroData.get("imageUrl");
             hero.setName(heroData.get("name").asText());
+            hero.setImageUrl(imageUrl != null && !imageUrl.isNull() ? imageUrl.asText() : null);
             hero.setRank(heroData.get("rank").asText());
             hero.setType(heroData.get("type").asText());
             hero.setTier(heroData.get("tier").asText());

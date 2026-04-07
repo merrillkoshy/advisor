@@ -12,10 +12,22 @@ import {
 } from "@/components/ui/sidebar";
 import { APP_NAME } from "@/constants";
 import { Link } from "@tanstack/react-router";
-import { Cpu, Home, Settings, Shield, Sword } from "lucide-react";
+import {
+  Gift,
+  Medal,
+  PawPrint,
+  Plane,
+  Shield,
+  Sword,
+  TestTube,
+  Turntable,
+  UserStar,
+  WalletCards,
+  WandSparkles,
+} from "lucide-react";
 import * as appPackage from "../../package.json";
 
-const mainNav = [{ title: "Advisor", url: "/", icon: Home }];
+const mainNav = [{ title: "Advisor", url: "/", icon: Turntable }];
 
 const heroNav = [
   { title: "Heroes", url: "/heroes", icon: Sword },
@@ -23,8 +35,14 @@ const heroNav = [
 ];
 
 const armyNav = [
-  { title: "Drone", url: "/army/drone", icon: Cpu },
-  { title: "Overlord", url: "/army/overlord", icon: Settings },
+  { title: "Drone", url: "/army/drone", icon: Plane },
+  { title: "Overlord", url: "/army/overlord", icon: PawPrint },
+  { title: "Tech", url: "/army/tech", icon: TestTube },
+  { title: "Unit", url: "/army/unit", icon: UserStar },
+  { title: "Wall of Honor", url: "/army/wall-of-honor", icon: Medal },
+  { title: "Cosmetics", url: "/army/cosmetics", icon: WandSparkles },
+  { title: "Tactics Cards", url: "/army/tactics-cards", icon: WalletCards },
+  { title: "Decorations", url: "/army/decorations", icon: Gift },
 ];
 const SideBarItem = ({ title, url, icon: Icon }: any) => (
   <SidebarMenuItem>

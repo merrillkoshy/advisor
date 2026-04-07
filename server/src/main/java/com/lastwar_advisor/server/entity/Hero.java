@@ -31,6 +31,7 @@ public class Hero {
 
     @Column(unique = true)
     private String name;
+    private String imageUrl;
 
     private String rank;
     private String type;
