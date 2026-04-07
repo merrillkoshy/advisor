@@ -4,3 +4,7 @@
 *.tmp
 *.bak
 *.swp
+
+.env
+*/.env
+*/.env.*
