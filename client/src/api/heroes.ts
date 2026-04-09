@@ -1,7 +1,9 @@
-import { BACKEND_URL } from "@/constants";
+// src/api/heroes.ts
 import type { Hero } from "@/types";
+import { queryOptions } from "@tanstack/react-query";
+import { apiGet } from "./client";
 
-export const getHeroes: () => Promise<Hero[]> = async () => {
-  const response = await fetch(`${BACKEND_URL}/heroes`);
-  return response.json();
-};
+export const heroesQuery = queryOptions({
+  queryKey: ["heroes"],
+  queryFn: () => apiGet<Hero[]>("/heroes"),
+});

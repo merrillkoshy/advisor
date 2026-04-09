@@ -21,6 +21,7 @@ import {
   Sword,
   TestTube,
   Turntable,
+  Users,
   UserStar,
   WalletCards,
   WandSparkles,
@@ -33,6 +34,8 @@ const heroNav = [
   { title: "Heroes", url: "/heroes", icon: Sword },
   { title: "Gear", url: "/gears", icon: Shield },
 ];
+
+const squadNav = [{ title: "Squads", url: "/squads", icon: Users }];
 
 const armyNav = [
   { title: "Drone", url: "/army/drone", icon: Plane },
@@ -72,6 +75,18 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Squads</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {squadNav.map((item) => (
+                <SideBarItem key={item.title} {...item} />
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel>Heroes</SidebarGroupLabel>
           <SidebarGroupContent>

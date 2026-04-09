@@ -1,4 +1,3 @@
-import { getGears } from "@/api/gears";
 import {
   Card,
   CardAction,
@@ -15,29 +14,22 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 
+import { gearsQuery } from "@/api/gears";
 import { Button } from "@/components/ui/button";
-import type { Gear } from "@/types";
+import { useGears } from "@/hooks/useGears";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/gears")({
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(gearsQuery);
+  },
   component: GearComponent,
 });
 
 function GearComponent() {
-  const [gears, setGears] = useState<Gear[]>([]);
-
-  const gearsList = async () => {
-    const response = await getGears();
-    return response;
-  };
-
-  useEffect(() => {
-    gearsList().then((g) => {
-      console.log(g);
-      setGears(g);
-    });
-  }, []);
+  const { data, isLoading, error } = useGears();
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error</div>;
 
   return (
     <div className="w-full mx-auto">
@@ -47,9 +39,9 @@ function GearComponent() {
         </FieldLegend>
         <FieldGroup className="items-center">
           <div className="grid grid-cols-2 gap-4">
-            {gears.map((gear) => (
-              <Field>
-                <Card className="w-full max-w-sm" key={gear.id}>
+            {data?.map((gear) => (
+              <Field key={gear.id}>
+                <Card className="w-full max-w-sm">
                   <CardHeader>
                     <CardTitle>{gear.baseName}</CardTitle>
                     <CardDescription>

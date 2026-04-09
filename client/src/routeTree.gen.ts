@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as HeroesRouteImport } from './routes/heroes'
 import { Route as GearsRouteImport } from './routes/gears'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SquadsIndexRouteImport } from './routes/squads/index'
+import { Route as SquadsSquadIdRouteImport } from './routes/squads/$squadId'
 
 const HeroesRoute = HeroesRouteImport.update({
   id: '/heroes',
@@ -28,35 +30,53 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SquadsIndexRoute = SquadsIndexRouteImport.update({
+  id: '/squads/',
+  path: '/squads/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SquadsSquadIdRoute = SquadsSquadIdRouteImport.update({
+  id: '/squads/$squadId',
+  path: '/squads/$squadId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
+  '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/squads/': typeof SquadsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
+  '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/squads': typeof SquadsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
+  '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/squads/': typeof SquadsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/gears' | '/heroes'
+  fullPaths: '/' | '/gears' | '/heroes' | '/squads/$squadId' | '/squads/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/gears' | '/heroes'
-  id: '__root__' | '/' | '/gears' | '/heroes'
+  to: '/' | '/gears' | '/heroes' | '/squads/$squadId' | '/squads'
+  id: '__root__' | '/' | '/gears' | '/heroes' | '/squads/$squadId' | '/squads/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GearsRoute: typeof GearsRoute
   HeroesRoute: typeof HeroesRoute
+  SquadsSquadIdRoute: typeof SquadsSquadIdRoute
+  SquadsIndexRoute: typeof SquadsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +102,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/squads/': {
+      id: '/squads/'
+      path: '/squads'
+      fullPath: '/squads/'
+      preLoaderRoute: typeof SquadsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/squads/$squadId': {
+      id: '/squads/$squadId'
+      path: '/squads/$squadId'
+      fullPath: '/squads/$squadId'
+      preLoaderRoute: typeof SquadsSquadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +123,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GearsRoute: GearsRoute,
   HeroesRoute: HeroesRoute,
+  SquadsSquadIdRoute: SquadsSquadIdRoute,
+  SquadsIndexRoute: SquadsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

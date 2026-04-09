@@ -36,8 +36,7 @@ public class HeroSeeder {
     }
 
     public void seedHeroes() throws Exception {
-        Set<String> existingHeroes = heroRepository.findAll().stream().map(Hero::getName)
-                .collect(java.util.stream.Collectors.toSet());
+
         Set<String> existingSkills = skillRepo.findAllWithEffects().stream()
                 .map(s -> s.getHero().getName() + ":" + s.getName())
                 .collect(java.util.stream.Collectors.toSet());
