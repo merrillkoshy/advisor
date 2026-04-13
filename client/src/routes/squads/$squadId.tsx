@@ -4,7 +4,7 @@ import { APP_PATHS, PLAYER_ID } from "@/constants";
 import { SquadEditor } from "@/elements/SquadEditor";
 import { useSquad } from "@/hooks/useSquads";
 import type { Slot, SquadSlotRequest } from "@/types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 
@@ -20,6 +20,7 @@ export const Route = createFileRoute("/squads/$squadId")({
 function SquadEditorPage() {
   const { squadId } = Route.useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data } = useSquad({
     playerId: PLAYER_ID,
@@ -30,7 +31,7 @@ function SquadEditorPage() {
     mutationFn: (slots: SquadSlotRequest[]) =>
       saveSquad(PLAYER_ID, Number(squadId), slots),
     onSuccess: () => {
-      // navigate back or show toast
+      queryClient.invalidateQueries({ queryKey: ["squads", PLAYER_ID] });
       navigate({ to: APP_PATHS.squads });
     },
     onError: (error) => {
@@ -69,7 +70,7 @@ function SquadEditorPage() {
   return (
     <div className="p-8">
       <button
-        onClick={() => navigate({ to: "/squads" })}
+        onClick={() => navigate({ to: APP_PATHS.squads })}
         className="flex items-center gap-1 text-sm text-white/40 hover:text-white/80 transition-colors mb-6"
       >
         <ChevronLeft className="w-4 h-4" />

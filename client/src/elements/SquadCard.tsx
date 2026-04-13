@@ -1,4 +1,5 @@
 // elements/SquadCard/SquadCard.tsx
+import { FORMATION_POSITIONS } from "@/constants";
 import { cn } from "@/lib/utils";
 import type { Squad } from "@/types";
 
@@ -10,9 +11,13 @@ interface SquadCardProps {
 
 export function SquadCard({ squad, squadNumber, onClick }: SquadCardProps) {
   // separate front and back from real data
-  console.log({ squad });
-  const frontSlots = squad.slots.filter((s) => s.position === "FRONT");
-  const backSlots = squad.slots.filter((s) => s.position === "BACK");
+
+  const frontSlots = squad.slots.filter(
+    (s) => s.position === FORMATION_POSITIONS.FRONT,
+  );
+  const backSlots = squad.slots.filter(
+    (s) => s.position === FORMATION_POSITIONS.BACK,
+  );
 
   // fill missing slots up to 2 front, 3 back
   const frontDisplay = Array.from(
@@ -23,7 +28,6 @@ export function SquadCard({ squad, squadNumber, onClick }: SquadCardProps) {
     { length: 3 },
     (_, i) => backSlots.find((s) => s.slotIndex === i) ?? null,
   );
-  console.log({ frontDisplay }, { backDisplay });
 
   return (
     <button
@@ -49,12 +53,6 @@ export function SquadCard({ squad, squadNumber, onClick }: SquadCardProps) {
       <div className="space-y-3">
         {/* Front row - 2 slots */}
         <div className="flex justify-center gap-2">
-          {/* {EMPTY_SLOTS.front.map((i) => (
-            <div
-              key={i}
-              className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 group-hover:border-white/20 transition-colors"
-            />
-          ))} */}
           {frontDisplay.map((slot, i) => (
             <div
               key={i}
