@@ -1,3 +1,10 @@
+import { APP_PATHS, FORMATION_POSITIONS } from "@/constants";
+
+type FORMATION_POSITIONS =
+  (typeof FORMATION_POSITIONS)[keyof typeof FORMATION_POSITIONS];
+
+type APP_PATHS = (typeof APP_PATHS)[keyof typeof APP_PATHS];
+
 type SkillEffect = {
   id: number;
   name: string;
@@ -60,4 +67,55 @@ type Gear = {
   levels: GearLevel[];
 };
 
-export type { Gear, GearLevel, GearStats, Hero, Skill, SkillEffect };
+type SquadSlot = {
+  id: number;
+  position: FORMATION_POSITIONS;
+  slotIndex: number;
+  hero: Hero | null;
+  gunStars: number;
+  armorStars: number;
+  chipStars: number;
+  radarStars: number;
+};
+
+type Squad = {
+  id: number;
+  squadNumber: number;
+  slots: SquadSlot[];
+};
+
+type SquadSlotRequest = {
+  position: FORMATION_POSITIONS;
+  slotIndex: number;
+  heroId: number;
+  gunStars: number;
+  armorStars: number;
+  chipStars: number;
+  radarStars: number;
+};
+
+interface Slot {
+  position: FORMATION_POSITIONS;
+  index: number;
+  hero: Hero | null;
+  gear: {
+    gun: number;
+    armor: number;
+    chip: number;
+    radar: number;
+  };
+}
+
+export type {
+  APP_PATHS,
+  FORMATION_POSITIONS,
+  Gear,
+  GearLevel,
+  GearStats,
+  Hero,
+  Skill,
+  SkillEffect,
+  Slot,
+  Squad,
+  SquadSlotRequest,
+};

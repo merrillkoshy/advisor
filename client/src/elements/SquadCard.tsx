@@ -1,17 +1,30 @@
 // elements/SquadCard/SquadCard.tsx
 import { cn } from "@/lib/utils";
+import type { Squad } from "@/types";
 
 interface SquadCardProps {
-  squadNumber: 1 | 2 | 3;
+  squad: Squad;
+  squadNumber: number;
   onClick: () => void;
 }
 
-const EMPTY_SLOTS = {
-  front: [1, 2],
-  back: [1, 2, 3],
-};
+export function SquadCard({ squad, squadNumber, onClick }: SquadCardProps) {
+  // separate front and back from real data
+  console.log({ squad });
+  const frontSlots = squad.slots.filter((s) => s.position === "FRONT");
+  const backSlots = squad.slots.filter((s) => s.position === "BACK");
 
-export function SquadCard({ squadNumber, onClick }: SquadCardProps) {
+  // fill missing slots up to 2 front, 3 back
+  const frontDisplay = Array.from(
+    { length: 2 },
+    (_, i) => frontSlots.find((s) => s.slotIndex === i) ?? null,
+  );
+  const backDisplay = Array.from(
+    { length: 3 },
+    (_, i) => backSlots.find((s) => s.slotIndex === i) ?? null,
+  );
+  console.log({ frontDisplay }, { backDisplay });
+
   return (
     <button
       onClick={onClick}
@@ -28,7 +41,7 @@ export function SquadCard({ squadNumber, onClick }: SquadCardProps) {
           Squad
         </span>
         <span className="text-2xl font-bold text-white/20 group-hover:text-white/40 transition-colors">
-          {squadNumber}
+          {`${squadNumber}`}
         </span>
       </div>
 
@@ -36,11 +49,25 @@ export function SquadCard({ squadNumber, onClick }: SquadCardProps) {
       <div className="space-y-3">
         {/* Front row - 2 slots */}
         <div className="flex justify-center gap-2">
-          {EMPTY_SLOTS.front.map((i) => (
+          {/* {EMPTY_SLOTS.front.map((i) => (
             <div
               key={i}
               className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 group-hover:border-white/20 transition-colors"
             />
+          ))} */}
+          {frontDisplay.map((slot, i) => (
+            <div
+              key={i}
+              className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
+            >
+              {slot?.hero?.imageUrl && (
+                <img
+                  src={slot.hero.imageUrl}
+                  alt={slot.hero.name}
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
           ))}
         </div>
       </div>
@@ -56,11 +83,19 @@ export function SquadCard({ squadNumber, onClick }: SquadCardProps) {
 
       {/* Back row - 3 slots */}
       <div className="flex justify-center gap-2">
-        {EMPTY_SLOTS.back.map((i) => (
+        {backDisplay.map((slot, i) => (
           <div
             key={i}
-            className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 group-hover:border-white/20 transition-colors"
-          />
+            className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
+          >
+            {slot?.hero?.imageUrl && (
+              <img
+                src={slot.hero.imageUrl}
+                alt={slot.hero.name}
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
         ))}
       </div>
 

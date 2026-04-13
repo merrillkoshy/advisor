@@ -1,12 +1,32 @@
+import { squadsQuery } from "@/api/squads";
+import { APP_PATHS, PLAYER_ID } from "@/constants";
+import { SkeletonLoader } from "@/elements/SkeletonLoader";
 import { SquadCard } from "@/elements/SquadCard";
+import { useSquads } from "@/hooks/useSquads";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/squads/")({
   component: SquadsPage,
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(squadsQuery(PLAYER_ID));
+  },
 });
 
 function SquadsPage() {
   const navigate = useNavigate();
+
+  const { data, isLoading } = useSquads({
+    playerId: PLAYER_ID,
+  });
+
+  const displaySquads = [1, 2, 3].map(
+    (n) =>
+      data?.find((s) => s.squadNumber === n) ?? {
+        id: n,
+        squadNumber: n,
+        slots: [],
+      },
+  );
 
   return (
     <div className="p-8">
@@ -18,18 +38,21 @@ function SquadsPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {([1, 2, 3] as const).map((n) => (
-          <SquadCard
-            key={n}
-            squadNumber={n}
-            onClick={() =>
-              navigate({
-                to: "/squads/$squadId",
-                params: { squadId: String(n) },
-              })
-            }
-          />
-        ))}
+        {isLoading && <SkeletonLoader items={3} />}
+        {!isLoading &&
+          displaySquads?.map((squad) => (
+            <SquadCard
+              key={squad.id}
+              squad={squad}
+              squadNumber={squad.squadNumber}
+              onClick={() =>
+                navigate({
+                  to: APP_PATHS.squad,
+                  params: { squadId: String(squad.squadNumber) },
+                })
+              }
+            />
+          ))}
       </div>
     </div>
   );

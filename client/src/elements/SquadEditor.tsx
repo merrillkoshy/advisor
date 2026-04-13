@@ -1,68 +1,64 @@
 // elements/SquadEditor/SquadEditor.tsx
 import { HeroPicker } from "@/elements/HeroPicker";
 import { cn } from "@/lib/utils";
-import type { Hero } from "@/types";
-import { rankColorMap, typeIconMap } from "@/utils/typeIconMap";
+import type { FORMATION_POSITIONS, Hero, Slot } from "@/types";
+import { typeIconMap } from "@/utils/typeIconMap";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
 import NoHero from "@/assets/icons/no-hero.svg";
+
+import { Button } from "@/components/ui/button";
 import { HeroDetail } from "@/elements/HeroDetail";
+import { Divider } from "@/elements/UI/Divider";
 import { useHeroes } from "@/hooks/useHeroes";
 
-type SlotPosition = "front" | "back";
+type SlotPosition = FORMATION_POSITIONS;
 
-interface Slot {
-  position: SlotPosition;
-  index: number;
-  hero: Hero | null;
-  gear: {
-    gun: number;
-    armor: number;
-    chip: number;
-    radar: number;
-  };
+interface SquadEditorProps {
+  initialSlots?: Slot[];
+  onSave: (slots: Slot[]) => void;
 }
-
 const INITIAL_SLOTS: Slot[] = [
   {
-    position: "front",
+    position: "FRONT",
     index: 0,
     hero: null,
     gear: { gun: 0, armor: 0, chip: 0, radar: 0 },
   },
   {
-    position: "front",
+    position: "FRONT",
     index: 1,
     hero: null,
     gear: { gun: 0, armor: 0, chip: 0, radar: 0 },
   },
   {
-    position: "back",
+    position: "BACK",
     index: 0,
     hero: null,
     gear: { gun: 0, armor: 0, chip: 0, radar: 0 },
   },
   {
-    position: "back",
+    position: "BACK",
     index: 1,
     hero: null,
     gear: { gun: 0, armor: 0, chip: 0, radar: 0 },
   },
   {
-    position: "back",
+    position: "BACK",
     index: 2,
     hero: null,
     gear: { gun: 0, armor: 0, chip: 0, radar: 0 },
   },
 ];
 
-interface SquadEditorProps {
-  squadId: string;
-}
-
-export function SquadEditor({ squadId }: SquadEditorProps) {
-  const [slots, setSlots] = useState<Slot[]>(INITIAL_SLOTS);
+export function SquadEditor({
+  initialSlots = INITIAL_SLOTS,
+  onSave,
+}: SquadEditorProps) {
+  const [slots, setSlots] = useState<Slot[]>(
+    initialSlots.length > 0 ? initialSlots : INITIAL_SLOTS,
+  );
   const [selectedSlotKey, setSelectedSlotKey] = useState<string | null>(null);
   const [activeSlot, setActiveSlot] = useState<{
     position: SlotPosition;
@@ -118,39 +114,48 @@ export function SquadEditor({ squadId }: SquadEditorProps) {
     setActiveSlot(null);
   }
 
-  const frontSlots = slots.filter((s) => s.position === "front");
-  const backSlots = slots.filter((s) => s.position === "back");
+  const frontSlots = slots.filter((s) => s.position === "FRONT");
+  const backSlots = slots.filter((s) => s.position === "BACK");
+
+  const frontDisplay = Array.from(
+    { length: 2 },
+    (_, i) => frontSlots.find((s) => s.index === i) ?? null,
+  );
+  const backDisplay = Array.from(
+    { length: 3 },
+    (_, i) => backSlots.find((s) => s.index === i) ?? null,
+  );
 
   return (
     <>
       <div className="flex flex-col items-center gap-6">
         {/* Front row */}
         <div className="flex gap-4">
-          {frontSlots.map((slot) => (
+          {frontDisplay.map((slot) => (
             <HeroSlot
-              key={`front-${slot.index}`}
+              key={`front-${slot?.index}`}
               slot={slot}
-              onClick={() => handleSlotClick("front", slot.index)}
+              onClick={() => handleSlotClick("FRONT", slot?.index ?? -1)}
             />
           ))}
         </div>
 
         {/* Divider */}
         <div className="flex w-full max-w-sm items-center gap-3">
-          <div className="h-px flex-1 bg-white/10" />
+          <Divider />
           <span className="text-[10px] uppercase tracking-widest text-white/20">
             back
           </span>
-          <div className="h-px flex-1 bg-white/10" />
+          <Divider />
         </div>
 
         {/* Back row */}
         <div className="flex gap-4">
-          {backSlots.map((slot) => (
+          {backDisplay.map((slot, n) => (
             <HeroSlot
-              key={`back-${slot.index}`}
+              key={`back-${slot?.index}-${n}`}
               slot={slot}
-              onClick={() => handleSlotClick("back", slot.index)}
+              onClick={() => handleSlotClick("BACK", slot?.index ?? -1)}
             />
           ))}
         </div>
@@ -171,6 +176,7 @@ export function SquadEditor({ squadId }: SquadEditorProps) {
             />
           </div>
         )}
+        <Button onClick={() => onSave(slots)}>Save</Button>
       </div>
 
       <HeroPicker
@@ -185,13 +191,12 @@ export function SquadEditor({ squadId }: SquadEditorProps) {
 }
 
 interface HeroSlotProps {
-  slot: Slot;
+  slot: Slot | null;
   onClick: () => void;
 }
 
 function HeroSlot({ slot, onClick }: HeroSlotProps) {
-  const { hero } = slot;
-  const rankColor = hero ? rankColorMap[hero.rank] : null;
+  const hero = slot?.hero ?? null;
 
   return (
     <button

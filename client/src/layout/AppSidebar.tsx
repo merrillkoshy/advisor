@@ -10,7 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { APP_NAME } from "@/constants";
+import { APP_NAME, APP_PATHS } from "@/constants";
 import { Link } from "@tanstack/react-router";
 import {
   Gift,
@@ -25,29 +25,39 @@ import {
   UserStar,
   WalletCards,
   WandSparkles,
+  type LucideProps,
 } from "lucide-react";
 import * as appPackage from "../../package.json";
 
-const mainNav = [{ title: "Advisor", url: "/", icon: Turntable }];
+interface SideBarItem {
+  title: string;
+  url: string;
+  icon: React.ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+  >;
+}
+
+const mainNav = [{ title: "Advisor", url: APP_PATHS.advisor, icon: Turntable }];
 
 const heroNav = [
-  { title: "Heroes", url: "/heroes", icon: Sword },
-  { title: "Gear", url: "/gears", icon: Shield },
+  { title: "Heroes", url: APP_PATHS.heroes, icon: Sword },
+  { title: "Gear", url: APP_PATHS.gears, icon: Shield },
 ];
 
 const squadNav = [{ title: "Squads", url: "/squads", icon: Users }];
 
 const armyNav = [
-  { title: "Drone", url: "/army/drone", icon: Plane },
-  { title: "Overlord", url: "/army/overlord", icon: PawPrint },
-  { title: "Tech", url: "/army/tech", icon: TestTube },
-  { title: "Unit", url: "/army/unit", icon: UserStar },
-  { title: "Wall of Honor", url: "/army/wall-of-honor", icon: Medal },
-  { title: "Cosmetics", url: "/army/cosmetics", icon: WandSparkles },
-  { title: "Tactics Cards", url: "/army/tactics-cards", icon: WalletCards },
-  { title: "Decorations", url: "/army/decorations", icon: Gift },
+  { title: "Drone", url: APP_PATHS.drone, icon: Plane },
+  { title: "Overlord", url: APP_PATHS.overlord, icon: PawPrint },
+  { title: "Tech", url: APP_PATHS.tech, icon: TestTube },
+  { title: "Unit", url: APP_PATHS.unit, icon: UserStar },
+  { title: "Wall of Honor", url: APP_PATHS.wall_of_honor, icon: Medal },
+  { title: "Cosmetics", url: APP_PATHS.cosmetics, icon: WandSparkles },
+  { title: "Tactics Cards", url: APP_PATHS.tactics_cards, icon: WalletCards },
+  { title: "Decorations", url: APP_PATHS.decorations, icon: Gift },
 ];
-const SideBarItem = ({ title, url, icon: Icon }: any) => (
+
+const SideBarItem = ({ title, url, icon: Icon }: SideBarItem) => (
   <SidebarMenuItem>
     <SidebarMenuButton tooltip={title} size={"lg"}>
       <Link to={url} className="flex items-center gap-4">

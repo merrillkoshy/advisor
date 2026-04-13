@@ -19,13 +19,6 @@ interface HeroDetailProps {
   onStarsChange: (type: keyof GearStars, stars: number) => void;
 }
 
-const GEAR_POSITIONS = [
-  { key: "gun" as const, type: "Gun", label: "Gun", gridArea: "gun" },
-  { key: "armor" as const, type: "Armor", label: "Armor", gridArea: "armor" },
-  { key: "chip" as const, type: "Data Chip", label: "Chip", gridArea: "chip" },
-  { key: "radar" as const, type: "Radar", label: "Radar", gridArea: "radar" },
-];
-
 function computeStats(gear: Gear, stars: number) {
   const level = 40 + stars * 10;
   return gear.stats.map((stat) => ({
@@ -49,13 +42,7 @@ interface GearSlotProps {
   onStarsChange: (stars: number) => void;
 }
 
-function GearSlot({
-  gearType,
-  label,
-  stars,
-  gear,
-  onStarsChange,
-}: GearSlotProps) {
+function GearSlot({ label, stars, gear, onStarsChange }: GearSlotProps) {
   const isMythic = stars === 5;
   const computedStats = gear ? computeStats(gear, stars) : [];
   const displayName = gear

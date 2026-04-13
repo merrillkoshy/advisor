@@ -52,4 +52,7 @@ public class Hero {
     @JsonManagedReference
     @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL)
     private Set<Skill> skills;
+
+    @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL)
+    private Set<SquadSlot> slots;
 }

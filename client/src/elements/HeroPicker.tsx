@@ -8,6 +8,7 @@ import {
 import { typeIconMap } from "@/utils/typeIconMap";
 
 import NoHero from "@/assets/icons/no-hero.svg";
+import { Divider } from "@/elements/UI/Divider";
 import { cn } from "@/lib/utils";
 import type { Hero } from "@/types";
 
@@ -58,7 +59,7 @@ export function HeroPicker({
                   <span className="text-xs uppercase tracking-widest text-white/40">
                     {label}
                   </span>
-                  <div className="h-px flex-1 bg-white/10" />
+                  <Divider />
                 </div>
 
                 {/* Hero grid */}
