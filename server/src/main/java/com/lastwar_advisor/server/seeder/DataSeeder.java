@@ -10,13 +10,16 @@ public class DataSeeder implements ApplicationRunner {
     private final GearSeeder gearSeeder;
     private final StatKeySeeder statKeySeeder;
     private final HeroSeeder heroSeeder;
-    private final DroneOverlordSeeder droneOverlordSeeder;
+    private final DroneSeeder droneSeeder;
+    private final OverlordSeeder overlordSeeder;
 
-    public DataSeeder(StatKeySeeder statKeySeeder, HeroSeeder heroSeeder, DroneOverlordSeeder droneOverlordSeeder,
+    public DataSeeder(StatKeySeeder statKeySeeder, HeroSeeder heroSeeder, DroneSeeder droneSeeder,
+            OverlordSeeder overlordSeeder,
             GearSeeder gearSeeder, PlayerSeeder playerSeeder) {
         this.statKeySeeder = statKeySeeder;
         this.heroSeeder = heroSeeder;
-        this.droneOverlordSeeder = droneOverlordSeeder;
+        this.droneSeeder = droneSeeder;
+        this.overlordSeeder = overlordSeeder;
         this.gearSeeder = gearSeeder;
         this.playerSeeder = playerSeeder;
     }
@@ -25,8 +28,11 @@ public class DataSeeder implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         statKeySeeder.seedStatKeys();
         heroSeeder.seedHeroes();
-        droneOverlordSeeder.seedDroneComponents();
-        droneOverlordSeeder.seedOverlordClasses();
+        // Drone
+        droneSeeder.seedDroneComponents();
+        droneSeeder.seedDrone();
+
+        overlordSeeder.seedOverlordClasses();
         gearSeeder.seedGears();
         gearSeeder.seedGearStats();
         gearSeeder.seedGearLevels();

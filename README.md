@@ -1,3 +1,7 @@
+Here's the rewritten README:
+
+---
+
 # lastwar-advisor
 
 A formation advisor for Last War: Survival — a mobile strategy game. Given an opponent's squad composition, the tool recommends the optimal counter formation and explains why, using a layered probability engine that factors in unit type matchups, hero skill synergies, damage types, gear profiles, and formation bonuses.
@@ -10,16 +14,19 @@ Built for friends as an internal tool, and as a portfolio project demonstrating 
 
 ## Stack
 
-| Layer           | Technology                  |
-| --------------- | --------------------------- |
-| Frontend        | React + TypeScript (Vite)   |
-| Backend         | Java 25 + Spring Boot 3     |
-| ORM             | Spring Data JPA / Hibernate |
-| Database        | PostgreSQL 16               |
-| Local Infra     | Docker                      |
-| Frontend Deploy | Vercel                      |
-| Backend Deploy  | TBD                         |
-| Database Deploy | Supabase                    |
+| Layer           | Technology                         |
+| --------------- | ---------------------------------- |
+| Frontend        | React + TypeScript (Vite)          |
+| Routing         | TanStack Router                    |
+| Server State    | TanStack Query                     |
+| UI Components   | shadcn/ui (Nova preset, dark mode) |
+| Backend         | Java 25 + Spring Boot 3            |
+| ORM             | Spring Data JPA / Hibernate        |
+| Database        | PostgreSQL 16                      |
+| Local Infra     | Docker                             |
+| Frontend Deploy | Vercel                             |
+| Backend Deploy  | Render                             |
+| Database Deploy | Supabase                           |
 
 ---
 
@@ -33,10 +40,11 @@ lastwar-advisor/
 │       └── main/
 │           ├── java/com/lastwar_advisor/server/
 │           │   ├── controller/      # REST controllers
+│           │   ├── dto/             # Request/response DTOs
 │           │   ├── entity/          # JPA entities
 │           │   ├── repository/      # Spring Data repositories
 │           │   ├── service/         # Business logic
-│           │   ├── seeder/          # Data seeders, run on startup
+│           │   ├── seeder/          # Idempotent data seeders, run on startup
 │           │   └── util/            # Constants and shared utilities
 │           └── resources/
 │               ├── application.properties
@@ -60,6 +68,12 @@ The engine is built around a universal **stat dictionary** — a `StatKey` table
 
 **Gear** — one of four equipment slots (Gun, Chip, Armor, Radar). Has a base name, mythic name, and base power. Scaling stats are stored in `GearStat` with a base value and increment per 10 levels. Star and mythic unlocks are stored in `GearLevel` with fixed values at levels 50 through 90.
 
+**Player** — a named player record. Seeded with a single default player (`Azrael`).
+
+**Squad** — belongs to a Player. A player has up to 3 squads. Auto-created on first access.
+
+**SquadSlot** — belongs to a Squad. Stores a hero reference, slot position (`FRONT`/`BACK`), slot index, and per-gear star ratings. Upserted on save — no delete-and-recreate.
+
 ### Player module pattern
 
 Every external factor that influences a battle — Tech, Decorations, Drone, Overlord, Wall of Honor, Units, Cosmetics, Tactics Cards — follows the same normalized pattern:
@@ -80,6 +94,7 @@ Adding a new modifier to any module is inserting a row, not altering the schema.
 - JDK 25 (Temurin recommended)
 - Docker Desktop
 - Maven (or use the included `mvnw` wrapper)
+- Node.js 20+
 
 ### Setup
 
@@ -116,6 +131,8 @@ The app seeds all data automatically on first startup — stat keys, heroes, dro
 cd client && npm install && npm run dev
 ```
 
+The frontend expects the backend at `http://localhost:8080`. Set `VITE_API_URL` to override before deploying.
+
 ---
 
 ## Seeding
@@ -129,17 +146,44 @@ Current seed state:
 - 6 Drone Components with StatKey links
 - 7 Overlord Classes
 - 4 Gears with scaling stats and star/mythic level unlocks
+- 1 Player with 3 auto-created Squads
 
 ---
 
 ## API Endpoints
 
-| Method | Endpoint            | Description                              |
-| ------ | ------------------- | ---------------------------------------- |
-| GET    | `/heroes`           | All heroes with skills and skill effects |
-| GET    | `/heroes/:id`       | Single hero by id                        |
-| GET    | `/drone-components` | All drone components with stat keys      |
-| GET    | `/overlord/classes` | All overlord classes                     |
+| Method | Endpoint                        | Description                              |
+| ------ | ------------------------------- | ---------------------------------------- |
+| GET    | `/heroes`                       | All heroes with skills and skill effects |
+| GET    | `/heroes/:id`                   | Single hero by id                        |
+| GET    | `/drone-components`             | All drone components with stat keys      |
+| GET    | `/overlord/classes`             | All overlord classes                     |
+| GET    | `/players/:playerId/squads`     | All squads for a player                  |
+| GET    | `/players/:playerId/squads/:id` | Single squad with slots and hero data    |
+| PUT    | `/players/:playerId/squads/:id` | Save squad slot configuration            |
+
+---
+
+## What's Built
+
+### Backend
+
+- Full entity graph: `Hero → Skill → SkillEffect`, `Gear → GearStat / GearLevel`, `Player → Squad → SquadSlot`
+- Proper JPA relationships with named `@JsonManagedReference` / `@JsonBackReference` pairs to handle circular serialization
+- Upsert logic for `SquadSlot` — idempotent saves, no destructive deletes
+- Auto-create squad on first access (no 404 on new players)
+- Swagger UI available at `/swagger-ui.html`
+
+### Frontend
+
+- Dark mode globally via `class="dark"` on `<html>`
+- `/squads` — squad index with 3 squad cards showing saved hero previews
+- `/squads/$squadId` — squad editor with formation layout (2 front, 3 back — player's perspective)
+- `HeroPicker` drawer grouped by type, dimming already-picked heroes
+- `HeroDetail` panel with 4 gear slots, 5-dot star selector, live computed gear stats, and inline save
+- `HeroCard` with rank color accent bar, type icon overlay, collapsible skill panel
+- Pen icon on filled slots to swap heroes without losing formation context
+- Full save/load round trip — heroes and gear stars persist to DB and reload correctly
 
 ---
 
@@ -147,8 +191,6 @@ Current seed state:
 
 - [ ] Complete skill data for remaining 25 heroes (via admin UI)
 - [ ] Admin UI for hero, skill, and gear data entry
-- [ ] Gear endpoints
-- [ ] Probability engine — type triangle, synergy layers, gear modifiers
-- [ ] Frontend — squad input form, recommendation output, confidence tiers
+- [ ] Advisor screen — opponent squad input, recommendation output, confidence tiers
 - [ ] Scenario module (v2)
 - [ ] Roster-constrained recommendations (v2)

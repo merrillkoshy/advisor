@@ -115,4 +115,8 @@ public class StatKeyConstants {
     public static final String PHYSICAL_DAMAGE_RESISTANCE_PERCENT = "physical_damage_resistance_percent";
     public static final String ENERGY_DAMAGE_RESISTANCE_PERCENT = "energy_damage_resistance_percent";
 
+    // Drone
+    public static final String HERO_DAMAGE_REDUCTION_PERCENT = "hero_damage_reduction_percent";
+    public static final String ENEMY_UNIT_DEATH_RATE_PERCENT = "enemy_unit_death_rate_percent";
+
 }

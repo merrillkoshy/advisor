@@ -1,15 +1,17 @@
 package com.lastwar_advisor.server.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +30,7 @@ public class DroneComponent {
     private String description;
     private Integer maxLevel;
 
-    @ManyToMany
-    @JoinTable(name = "drone_component_stat_key", joinColumns = @JoinColumn(name = "drone_component_id"), inverseJoinColumns = @JoinColumn(name = "stat_key_id"))
-    private List<StatKey> statKeys;
+    @OneToMany(mappedBy = "droneComponent", cascade = CascadeType.ALL)
+    @JsonManagedReference("component-stats")
+    private List<DroneComponentStat> stats = new ArrayList<>();
 }

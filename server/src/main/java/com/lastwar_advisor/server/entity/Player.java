@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,5 +37,9 @@ public class Player {
     @JsonManagedReference
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private Set<Squad> squads;
+
+    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
+    @JsonManagedReference("player-drone")
+    private Drone drone;
 
 }
