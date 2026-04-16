@@ -1,4 +1,5 @@
-import type { Squad, SquadSlotRequest } from "@/types";
+import type { SquadSlotRequest } from "@/dto";
+import type { Squad } from "@/types";
 import { queryOptions } from "@tanstack/react-query";
 import { apiGet, apiPut } from "./client";
 

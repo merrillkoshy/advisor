@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HeroesRouteImport } from './routes/heroes'
 import { Route as GearsRouteImport } from './routes/gears'
+import { Route as DroneRouteImport } from './routes/drone'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SquadsIndexRouteImport } from './routes/squads/index'
 import { Route as SquadsSquadIdRouteImport } from './routes/squads/$squadId'
@@ -23,6 +24,11 @@ const HeroesRoute = HeroesRouteImport.update({
 const GearsRoute = GearsRouteImport.update({
   id: '/gears',
   path: '/gears',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DroneRoute = DroneRouteImport.update({
+  id: '/drone',
+  path: '/drone',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,6 +49,7 @@ const SquadsSquadIdRoute = SquadsSquadIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
@@ -65,14 +74,28 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/gears' | '/heroes' | '/squads/$squadId' | '/squads/'
+  fullPaths:
+    | '/'
+    | '/drone'
+    | '/gears'
+    | '/heroes'
+    | '/squads/$squadId'
+    | '/squads/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/gears' | '/heroes' | '/squads/$squadId' | '/squads'
-  id: '__root__' | '/' | '/gears' | '/heroes' | '/squads/$squadId' | '/squads/'
+  to: '/' | '/drone' | '/gears' | '/heroes' | '/squads/$squadId' | '/squads'
+  id:
+    | '__root__'
+    | '/'
+    | '/drone'
+    | '/gears'
+    | '/heroes'
+    | '/squads/$squadId'
+    | '/squads/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DroneRoute: typeof DroneRoute
   GearsRoute: typeof GearsRoute
   HeroesRoute: typeof HeroesRoute
   SquadsSquadIdRoute: typeof SquadsSquadIdRoute
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/gears'
       fullPath: '/gears'
       preLoaderRoute: typeof GearsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drone': {
+      id: '/drone'
+      path: '/drone'
+      fullPath: '/drone'
+      preLoaderRoute: typeof DroneRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -121,6 +151,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DroneRoute: DroneRoute,
   GearsRoute: GearsRoute,
   HeroesRoute: HeroesRoute,
   SquadsSquadIdRoute: SquadsSquadIdRoute,

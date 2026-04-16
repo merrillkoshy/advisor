@@ -1,9 +1,10 @@
 // routes/squads/$squadId.tsx
 import { saveSquad, squadQuery } from "@/api/squads";
 import { APP_PATHS, PLAYER_ID } from "@/constants";
+import type { SquadSlotRequest } from "@/dto";
 import { SquadEditor } from "@/elements/SquadEditor";
 import { useSquad } from "@/hooks/useSquads";
-import type { Slot, SquadSlotRequest } from "@/types";
+import type { Slot } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";

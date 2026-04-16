@@ -155,7 +155,10 @@ export function SquadEditor({
             />
           ))}
         </div>
-        <Button onClick={() => onSave(slots)}>Save</Button>
+        <Button className={"cursor-pointer"} onClick={() => onSave(slots)}>
+          Save
+        </Button>
+
         {/* Right: hero detail panel */}
         {selectedSlot?.hero && (
           <div className="flex-1" id="hero-details">

@@ -15,11 +15,11 @@ import com.lastwar_advisor.server.service.SquadService;
 
 @RestController
 @RequestMapping("/players")
-public class SquadController {
+public class PlayerSquadControllerSquadController {
 
     private final SquadService service;
 
-    public SquadController(SquadService service) {
+    public PlayerSquadControllerSquadController(SquadService service) {
         this.service = service;
     }
 

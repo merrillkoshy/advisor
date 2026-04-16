@@ -1,6 +1,8 @@
 package com.lastwar_advisor.server.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,4 +44,7 @@ public class Player {
     @JsonManagedReference("player-drone")
     private Drone drone;
 
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
+    @JsonManagedReference("player-drone-components")
+    private List<PlayerDroneComponent> droneComponents = new ArrayList<>();
 }

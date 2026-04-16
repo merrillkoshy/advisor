@@ -13,7 +13,7 @@ export const APP_PATHS = {
   squad: "/squads/$squadId",
   heroes: "/heroes",
   gears: "/gears",
-  drone: "/army/drone",
+  drone: "/drone",
   overlord: "/army/overlord",
   tech: "/army/tech",
   unit: "/army/unit",

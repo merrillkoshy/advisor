@@ -5,6 +5,15 @@ type FORMATION_POSITIONS =
 
 type APP_PATHS = (typeof APP_PATHS)[keyof typeof APP_PATHS];
 
+type Stat = {
+  id: number;
+  key: string;
+  description: string;
+  category: string;
+  valueType: string;
+};
+
+//Hero
 type SkillEffect = {
   id: number;
   name: string;
@@ -36,24 +45,18 @@ type Hero = {
   updatedAt: string;
 };
 
-type GearStat = {
-  id: number;
-  key: string;
-  description: string;
-  category: string;
-  valueType: string;
-};
+//Gear
 type GearStats = {
   id: number;
   baseValue: number;
   increment: number;
-  statKey: GearStat;
+  statKey: Stat;
 };
 
 type GearLevel = {
   id: number;
   level: number;
-  statKey: GearStat;
+  statKey: Stat;
   value: number;
 };
 
@@ -67,6 +70,7 @@ type Gear = {
   levels: GearLevel[];
 };
 
+//Player Squad
 type SquadSlot = {
   id: number;
   position: FORMATION_POSITIONS;
@@ -83,17 +87,6 @@ type Squad = {
   squadNumber: number;
   slots: SquadSlot[];
 };
-
-type SquadSlotRequest = {
-  position: FORMATION_POSITIONS;
-  slotIndex: number;
-  heroId: number;
-  gunStars: number;
-  armorStars: number;
-  chipStars: number;
-  radarStars: number;
-};
-
 interface Slot {
   position: FORMATION_POSITIONS;
   index: number;
@@ -105,9 +98,37 @@ interface Slot {
     radar: number;
   };
 }
+//Drone
+type DroneBase = { id: number; level: number; starTier: number; title: string };
+type DroneComponentStats = {
+  baseValue: number;
+  id: number;
+  increment: number;
+  statKey: Stat;
+  unlockLevel: number;
+};
+type DroneComponentDetail = {
+  description: string;
+  id: number;
+  maxLevel: number;
+  name: string;
+  imageUrl: string;
+  stats: DroneComponentStats[];
+};
+type DroneComponent = {
+  droneComponent: DroneComponentDetail;
+  id: number;
+  level: number;
+};
+interface Drone {
+  drone: DroneBase;
+  components: DroneComponent[];
+}
 
 export type {
   APP_PATHS,
+  Drone,
+  DroneComponent,
   FORMATION_POSITIONS,
   Gear,
   GearLevel,
@@ -117,5 +138,4 @@ export type {
   SkillEffect,
   Slot,
   Squad,
-  SquadSlotRequest,
 };

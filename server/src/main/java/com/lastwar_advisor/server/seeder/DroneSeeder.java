@@ -47,67 +47,77 @@ public class DroneSeeder {
                         "Affects drone HP and reduces chances of taking critical hits", 12,
                         List.of(
                                 new Object[] { "drone_hp", 1, 2700.0, 197942.0 },
-                                new Object[] { "crit_reduction_percent", 8, 1.0, 1.0 })
+                                new Object[] { "crit_reduction_percent", 8, 1.0, 1.0 }),
+                        "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/radar_research.png"
                 },
                 new Object[] { "Turbo Engine Research",
                         "Affects Hero & Overlord HP and boosts hero HP percentage", 12,
                         List.of(
                                 new Object[] { "hero_overlord_hp", 1, 1350.0, 144601.0 },
-                                new Object[] { "hero_hp_boost_percent", 8, 5.0, 5.0 })
+                                new Object[] { "hero_hp_boost_percent", 8, 5.0, 5.0 }),
+                        "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/turbo_engine_research.png"
                 },
                 new Object[] { "External Armor Research",
                         "Affects Hero & Overlord DEF and boosts hero defense percentage", 12,
                         List.of(
                                 new Object[] { "hero_overlord_def", 1, 6.0, 894.0 },
-                                new Object[] { "hero_def_boost_percent", 8, 5.0, 5.0 })
+                                new Object[] { "hero_def_boost_percent", 8, 5.0, 5.0 }),
+                        "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/external_armor_research.png"
                 },
                 new Object[] { "Thermal Imager Research",
                         "Affects drone DEF and boosts crit rate percentage", 12,
                         List.of(
                                 new Object[] { "drone_def", 1, 13.0, 1873.0 },
-                                new Object[] { "crit_rate_percent", 8, 1.0, 2.5 })
+                                new Object[] { "crit_rate_percent", 8, 1.0, 2.5 }),
+                        "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/thermal_imager_research.png"
                 },
                 new Object[] { "Fuel Cell Research",
                         "Affects drone ATK and boosts crit damage percentage", 12,
                         List.of(
                                 new Object[] { "drone_atk", 1, 64.0, 10637.0 },
-                                new Object[] { "crit_damage_percent", 8, 3.0, 4.0 })
+                                new Object[] { "crit_damage_percent", 8, 3.0, 4.0 }),
+                        "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/fuel_cell_research.png"
                 },
                 new Object[] { "Airborne Missile Research",
                         "Affects Hero & Overlord ATK, boosts hero skill damage and hero ATK percentage", 12,
                         List.of(
                                 new Object[] { "hero_overlord_atk", 1, 32.0, 3004.0 },
                                 new Object[] { "hero_skill_damage_percent", 1, 0.25, 0.75 },
-                                new Object[] { "hero_atk_boost_percent", 8, 5.0, 5.0 })
+                                new Object[] { "hero_atk_boost_percent", 8, 5.0, 5.0 }),
+                        "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/airborne_missile_research.png"
                 });
 
         for (Object[] c : components) {
             String name = (String) c[0];
-            if (existingComponents.contains(name))
-                continue;
 
-            seededCount++;
-            DroneComponent dc = new DroneComponent();
-            dc.setName(name);
+            DroneComponent dc = droneComponentRepo.findByName(name).orElseGet(() -> {
+                DroneComponent newDc = new DroneComponent();
+                newDc.setName(name);
+                return newDc;
+            });
+
             dc.setDescription((String) c[1]);
             dc.setMaxLevel((Integer) c[2]);
+            dc.setImageUrl((String) c[4]);
 
-            List<?> statsData = (List<?>) c[3];
-            List<DroneComponentStat> stats = new ArrayList<>();
-
-            for (Object statEntry : statsData) {
-                Object[] s = (Object[]) statEntry;
-                DroneComponentStat stat = new DroneComponentStat();
-                stat.setDroneComponent(dc);
-                stat.setUnlockLevel((Integer) s[1]);
-                stat.setBaseValue((Double) s[2]);
-                stat.setIncrement((Double) s[3]);
-                statKeyRepo.findByKey((String) s[0]).ifPresent(stat::setStatKey);
-                stats.add(stat);
+            if (dc.getStats() == null || dc.getStats().isEmpty()) {
+                List<?> statsData = (List<?>) c[3];
+                List<DroneComponentStat> stats = new ArrayList<>();
+                for (Object statEntry : statsData) {
+                    Object[] s = (Object[]) statEntry;
+                    DroneComponentStat stat = new DroneComponentStat();
+                    stat.setDroneComponent(dc);
+                    stat.setUnlockLevel((Integer) s[1]);
+                    stat.setBaseValue((Double) s[2]);
+                    stat.setIncrement((Double) s[3]);
+                    statKeyRepo.findByKey((String) s[0]).ifPresent(stat::setStatKey);
+                    stats.add(stat);
+                }
+                dc.setStats(stats);
             }
 
-            dc.setStats(stats);
             droneComponentRepo.save(dc);
+            seededCount++;
         }
 
         if (seededCount > 0) {
