@@ -1,6 +1,7 @@
-package com.lastwar_advisor.server.entity;
+package com.lastwar_advisor.server.entity.Player;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.lastwar_advisor.server.entity.DroneComponent;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -47,8 +47,6 @@ function DronePage() {
     },
   });
 
-  console.log(data);
-
   const onSaveDrone = (droneLevel: number) => {
     droneMutation({ droneLevel });
   };

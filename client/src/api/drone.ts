@@ -7,6 +7,7 @@ export const droneQuery = (playerId: number) =>
   queryOptions({
     queryKey: ["drone", playerId],
     queryFn: () => apiGet<Drone>(`/players/${playerId}/drone`),
+    enabled: !!playerId,
   });
 
 export async function saveDrone(playerId: number, level: number) {

@@ -34,7 +34,6 @@ export default function Drone({
       saveDroneComponents(components);
   };
   const handleComponentLevel = (componentId: number, level: number) => {
-    console.log(componentId, level);
     setComponents((prev) =>
       prev.map((c) =>
         c.droneComponent.id === componentId ? { ...c, level } : c,

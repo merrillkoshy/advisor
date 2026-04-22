@@ -19,6 +19,7 @@ import {
   Plane,
   Shield,
   Sword,
+  Swords,
   TestTube,
   Turntable,
   Users,
@@ -44,7 +45,11 @@ const heroNav = [
   { title: "Gear", url: APP_PATHS.gears, icon: Shield },
 ];
 
-const squadNav = [{ title: "Squads", url: "/squads", icon: Users }];
+const squadNav = [{ title: "Squads", url: APP_PATHS.squads, icon: Users }];
+
+const adminNav = [
+  { title: "Opponent Configuration", url: APP_PATHS.opponents, icon: Swords },
+];
 
 const armyNav = [
   { title: "Drone", url: APP_PATHS.drone, icon: Plane },
@@ -91,6 +96,17 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {squadNav.map((item) => (
+                <SideBarItem key={item.title} {...item} />
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        {/* Authorized route */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Admin</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {adminNav.map((item) => (
                 <SideBarItem key={item.title} {...item} />
               ))}
             </SidebarMenu>

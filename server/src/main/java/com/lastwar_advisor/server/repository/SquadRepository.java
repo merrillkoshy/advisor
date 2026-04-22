@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.lastwar_advisor.server.entity.Player;
 import com.lastwar_advisor.server.entity.Squad;
+import com.lastwar_advisor.server.entity.Player.Player;
 
 public interface SquadRepository extends JpaRepository<Squad, Long> {
     Optional<Squad> findByPlayerAndSquadNumber(Player player, Integer squadNumber);

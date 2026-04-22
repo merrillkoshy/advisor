@@ -2,7 +2,7 @@ package com.lastwar_advisor.server.seeder;
 
 import org.springframework.stereotype.Component;
 
-import com.lastwar_advisor.server.entity.Player;
+import com.lastwar_advisor.server.entity.Player.Player;
 import com.lastwar_advisor.server.repository.PlayerRepository;
 
 @Component

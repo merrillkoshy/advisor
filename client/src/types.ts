@@ -138,4 +138,5 @@ export type {
   SkillEffect,
   Slot,
   Squad,
+  SquadSlot,
 };

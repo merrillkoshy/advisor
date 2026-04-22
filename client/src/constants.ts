@@ -6,11 +6,14 @@ export const FORMATION_POSITIONS = {
 } as const;
 
 export const PLAYER_ID = 1;
+export const OPPONENT_ID = 1;
 
 export const APP_PATHS = {
   advisor: "/",
   squads: "/squads",
   squad: "/squads/$squadId",
+  opponents: "/opponents",
+  opponent: "/opponents/$opponentSquadId",
   heroes: "/heroes",
   gears: "/gears",
   drone: "/drone",
@@ -22,3 +25,11 @@ export const APP_PATHS = {
   tactics_cards: "/army/tactics-cards",
   decorations: "/army/decorations",
 };
+export const DRONE_STAR_TITLES = [
+  'TD-1 "Pathfinder"',
+  'TD-2 "Blaster"',
+  'TD-3 "Silver Knight"',
+  'TD-4 "Phantom"',
+  'TD-5 "Destroyer"',
+  'TD-6 "Colossus"',
+];

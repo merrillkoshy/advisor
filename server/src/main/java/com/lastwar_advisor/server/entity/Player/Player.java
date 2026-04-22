@@ -1,4 +1,4 @@
-package com.lastwar_advisor.server.entity;
+package com.lastwar_advisor.server.entity.Player;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.lastwar_advisor.server.entity.Drone;
+import com.lastwar_advisor.server.entity.Squad;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

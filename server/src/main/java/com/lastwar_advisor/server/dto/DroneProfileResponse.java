@@ -3,7 +3,7 @@ package com.lastwar_advisor.server.dto;
 import java.util.List;
 
 import com.lastwar_advisor.server.entity.Drone;
-import com.lastwar_advisor.server.entity.PlayerDroneComponent;
+import com.lastwar_advisor.server.entity.Player.PlayerDroneComponent;
 
 import lombok.Getter;
 import lombok.Setter;

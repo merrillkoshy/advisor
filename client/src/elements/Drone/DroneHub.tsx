@@ -1,23 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-
-const STAR_TITLES = [
-  'TD-1 "Pathfinder"',
-  'TD-2 "Blaster"',
-  'TD-3 "Silver Knight"',
-  'TD-4 "Phantom"',
-  'TD-5 "Destroyer"',
-  'TD-6 "Colossus"',
-];
-
-const getStarTier = (level: number) => {
-  if (level < 30) return 0;
-  if (level < 50) return 1;
-  if (level < 70) return 2;
-  if (level < 90) return 3;
-  if (level < 110) return 4;
-  return 5;
-};
+import { DRONE_STAR_TITLES } from "@/constants";
+import { getStarTier } from "@/utils/getStarTier";
 
 type DroneHubProps = {
   level: number | readonly number[];
@@ -26,7 +10,7 @@ type DroneHubProps = {
 
 export function DroneHub({ level, onLevelChange }: DroneHubProps) {
   const tier = getStarTier(level as number);
-  const title = STAR_TITLES[tier];
+  const title = DRONE_STAR_TITLES[tier];
 
   return (
     <div className="flex flex-col items-center gap-2 w-1/2 space-y-15">

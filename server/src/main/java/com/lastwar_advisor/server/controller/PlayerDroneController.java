@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lastwar_advisor.server.dto.DroneProfileResponse;
 import com.lastwar_advisor.server.dto.DroneRequest;
-import com.lastwar_advisor.server.entity.PlayerDroneComponent;
+import com.lastwar_advisor.server.entity.Player.PlayerDroneComponent;
 import com.lastwar_advisor.server.service.DroneService;
 
 @RestController

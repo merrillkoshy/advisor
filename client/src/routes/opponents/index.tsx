@@ -1,25 +1,25 @@
-import { squadsQuery } from "@/api/squads";
-import { APP_PATHS, PLAYER_ID } from "@/constants";
+import { opponentSquadsQuery } from "@/api/opponents";
+import { APP_PATHS, OPPONENT_ID } from "@/constants";
 import { SkeletonLoader } from "@/elements/SkeletonLoader";
 import { SquadCard } from "@/elements/SquadCard";
-import { useSquads } from "@/hooks/useSquads";
+import { useOpponentSquads } from "@/hooks/useOpponentSquads";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/squads/")({
-  component: SquadsPage,
-  loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(squadsQuery(PLAYER_ID));
-  },
+export const Route = createFileRoute("/opponents/")({
+  component: OpponentsPage,
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(opponentSquadsQuery(OPPONENT_ID)),
+  errorComponent: ({ error }) => <div>{error.message}</div>,
 });
 
-function SquadsPage() {
+function OpponentsPage() {
   const navigate = useNavigate();
 
-  const { data, isLoading } = useSquads({
-    playerId: PLAYER_ID,
+  const { data, isLoading } = useOpponentSquads({
+    opponentId: OPPONENT_ID,
   });
 
-  const displaySquads = [1, 2, 3].map(
+  const displaySquads = [1].map(
     (n) =>
       data?.find((s) => s.squadNumber === n) ?? {
         id: n,
@@ -31,9 +31,9 @@ function SquadsPage() {
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white">Squads</h1>
+        <h1 className="text-2xl font-bold text-white">Opponent Squads</h1>
         <p className="mt-1 text-sm text-white/40">
-          Configure your hero formations and gear loadouts.
+          Configure opponent formations and gear loadouts.
         </p>
       </div>
 
@@ -48,7 +48,7 @@ function SquadsPage() {
               onClick={() =>
                 navigate({
                   to: APP_PATHS.opponent,
-                  params: { squadId: String(squad.squadNumber) },
+                  params: { opponentSquadId: String(squad.squadNumber) },
                 })
               }
             />

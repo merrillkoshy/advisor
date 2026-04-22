@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataSeeder implements ApplicationRunner {
     private final PlayerSeeder playerSeeder;
+    private final OpponentSeeder opponentSeeder;
     private final GearSeeder gearSeeder;
     private final StatKeySeeder statKeySeeder;
     private final HeroSeeder heroSeeder;
@@ -15,13 +16,14 @@ public class DataSeeder implements ApplicationRunner {
 
     public DataSeeder(StatKeySeeder statKeySeeder, HeroSeeder heroSeeder, DroneSeeder droneSeeder,
             OverlordSeeder overlordSeeder,
-            GearSeeder gearSeeder, PlayerSeeder playerSeeder) {
+            GearSeeder gearSeeder, PlayerSeeder playerSeeder, OpponentSeeder opponentSeeder) {
         this.statKeySeeder = statKeySeeder;
         this.heroSeeder = heroSeeder;
         this.droneSeeder = droneSeeder;
         this.overlordSeeder = overlordSeeder;
         this.gearSeeder = gearSeeder;
         this.playerSeeder = playerSeeder;
+        this.opponentSeeder = opponentSeeder;
     }
 
     @Override
@@ -33,10 +35,15 @@ public class DataSeeder implements ApplicationRunner {
         droneSeeder.seedDrone();
 
         overlordSeeder.seedOverlordClasses();
+
+        // Gear
         gearSeeder.seedGears();
         gearSeeder.seedGearStats();
         gearSeeder.seedGearLevels();
+
+        // Personas
         playerSeeder.seedPlayers();
+        opponentSeeder.seedOpponents();
     }
 
 }

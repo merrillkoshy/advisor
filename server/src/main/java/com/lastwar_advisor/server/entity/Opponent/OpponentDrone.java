@@ -1,8 +1,7 @@
-package com.lastwar_advisor.server.entity;
+package com.lastwar_advisor.server.entity.Opponent;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lastwar_advisor.server.entity.Player.Player;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,16 +17,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "drones")
-public class Drone {
+public class OpponentDrone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "player_id", unique = true)
-    @JsonBackReference("player-drone")
-    private Player player;
+    @JoinColumn(name = "opponent_id", unique = true)
+    @JsonBackReference("opponent-drone")
+    private Opponent opponent;
 
     private Integer level;
 

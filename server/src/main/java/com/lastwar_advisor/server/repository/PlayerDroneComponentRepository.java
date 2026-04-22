@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.lastwar_advisor.server.entity.DroneComponent;
-import com.lastwar_advisor.server.entity.Player;
-import com.lastwar_advisor.server.entity.PlayerDroneComponent;
+import com.lastwar_advisor.server.entity.Player.Player;
+import com.lastwar_advisor.server.entity.Player.PlayerDroneComponent;
 
 public interface PlayerDroneComponentRepository extends JpaRepository<PlayerDroneComponent, Long> {
     List<PlayerDroneComponent> findByPlayer(Player player);

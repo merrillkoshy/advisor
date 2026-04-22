@@ -14,7 +14,9 @@ import { Route as GearsRouteImport } from './routes/gears'
 import { Route as DroneRouteImport } from './routes/drone'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SquadsIndexRouteImport } from './routes/squads/index'
+import { Route as OpponentsIndexRouteImport } from './routes/opponents/index'
 import { Route as SquadsSquadIdRouteImport } from './routes/squads/$squadId'
+import { Route as OpponentsOpponentSquadIdRouteImport } from './routes/opponents/$opponentSquadId'
 
 const HeroesRoute = HeroesRouteImport.update({
   id: '/heroes',
@@ -41,18 +43,31 @@ const SquadsIndexRoute = SquadsIndexRouteImport.update({
   path: '/squads/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpponentsIndexRoute = OpponentsIndexRouteImport.update({
+  id: '/opponents/',
+  path: '/opponents/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SquadsSquadIdRoute = SquadsSquadIdRouteImport.update({
   id: '/squads/$squadId',
   path: '/squads/$squadId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpponentsOpponentSquadIdRoute =
+  OpponentsOpponentSquadIdRouteImport.update({
+    id: '/opponents/$opponentSquadId',
+    path: '/opponents/$opponentSquadId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
+  '/opponents/$opponentSquadId': typeof OpponentsOpponentSquadIdRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/opponents/': typeof OpponentsIndexRoute
   '/squads/': typeof SquadsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,7 +75,9 @@ export interface FileRoutesByTo {
   '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
+  '/opponents/$opponentSquadId': typeof OpponentsOpponentSquadIdRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/opponents': typeof OpponentsIndexRoute
   '/squads': typeof SquadsIndexRoute
 }
 export interface FileRoutesById {
@@ -69,7 +86,9 @@ export interface FileRoutesById {
   '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
   '/heroes': typeof HeroesRoute
+  '/opponents/$opponentSquadId': typeof OpponentsOpponentSquadIdRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/opponents/': typeof OpponentsIndexRoute
   '/squads/': typeof SquadsIndexRoute
 }
 export interface FileRouteTypes {
@@ -79,17 +98,29 @@ export interface FileRouteTypes {
     | '/drone'
     | '/gears'
     | '/heroes'
+    | '/opponents/$opponentSquadId'
     | '/squads/$squadId'
+    | '/opponents/'
     | '/squads/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/drone' | '/gears' | '/heroes' | '/squads/$squadId' | '/squads'
+  to:
+    | '/'
+    | '/drone'
+    | '/gears'
+    | '/heroes'
+    | '/opponents/$opponentSquadId'
+    | '/squads/$squadId'
+    | '/opponents'
+    | '/squads'
   id:
     | '__root__'
     | '/'
     | '/drone'
     | '/gears'
     | '/heroes'
+    | '/opponents/$opponentSquadId'
     | '/squads/$squadId'
+    | '/opponents/'
     | '/squads/'
   fileRoutesById: FileRoutesById
 }
@@ -98,7 +129,9 @@ export interface RootRouteChildren {
   DroneRoute: typeof DroneRoute
   GearsRoute: typeof GearsRoute
   HeroesRoute: typeof HeroesRoute
+  OpponentsOpponentSquadIdRoute: typeof OpponentsOpponentSquadIdRoute
   SquadsSquadIdRoute: typeof SquadsSquadIdRoute
+  OpponentsIndexRoute: typeof OpponentsIndexRoute
   SquadsIndexRoute: typeof SquadsIndexRoute
 }
 
@@ -139,11 +172,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SquadsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/opponents/': {
+      id: '/opponents/'
+      path: '/opponents'
+      fullPath: '/opponents/'
+      preLoaderRoute: typeof OpponentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/squads/$squadId': {
       id: '/squads/$squadId'
       path: '/squads/$squadId'
       fullPath: '/squads/$squadId'
       preLoaderRoute: typeof SquadsSquadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opponents/$opponentSquadId': {
+      id: '/opponents/$opponentSquadId'
+      path: '/opponents/$opponentSquadId'
+      fullPath: '/opponents/$opponentSquadId'
+      preLoaderRoute: typeof OpponentsOpponentSquadIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -154,7 +201,9 @@ const rootRouteChildren: RootRouteChildren = {
   DroneRoute: DroneRoute,
   GearsRoute: GearsRoute,
   HeroesRoute: HeroesRoute,
+  OpponentsOpponentSquadIdRoute: OpponentsOpponentSquadIdRoute,
   SquadsSquadIdRoute: SquadsSquadIdRoute,
+  OpponentsIndexRoute: OpponentsIndexRoute,
   SquadsIndexRoute: SquadsIndexRoute,
 }
 export const routeTree = rootRouteImport
