@@ -8,3 +8,6 @@
 .env
 */.env
 */.env.*
+supabase/*
+generate_summary.sh
+full_codebase_summary.txt

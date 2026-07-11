@@ -47,7 +47,7 @@ function SquadsPage() {
               squadNumber={squad.squadNumber}
               onClick={() =>
                 navigate({
-                  to: APP_PATHS.opponent,
+                  to: APP_PATHS.squad,
                   params: { squadId: String(squad.squadNumber) },
                 })
               }

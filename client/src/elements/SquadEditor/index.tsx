@@ -11,6 +11,7 @@ import { HeroSlot } from "@/elements/SquadEditor/HeroSlotProps";
 import { INITIAL_SLOTS } from "@/elements/SquadEditor/initialValues";
 import { Divider } from "@/elements/UI/Divider";
 import { useHeroes } from "@/hooks/useHeroes";
+import { getSquadByPositionForSlotType } from "@/utils/getSquadByPosition";
 
 type SlotPosition = FORMATION_POSITIONS;
 
@@ -21,6 +22,7 @@ interface SquadEditorProps {
 
 const mergeSlots = (initialSlots: Slot[]) => {
   const base = INITIAL_SLOTS.map((s) => ({ ...s }));
+
   for (const saved of initialSlots) {
     const idx = base.findIndex(
       (s) => s.position === saved.position && s.index === saved.index,
@@ -100,35 +102,31 @@ export function SquadEditor({
     setActiveSlot(null);
   }
 
-  const frontSlots = slots.filter((s) => s.position === POSITIONS.FRONT);
-  const backSlots = slots.filter((s) => s.position === POSITIONS.BACK);
-
-  const frontDisplay = Array.from(
-    { length: 2 },
-    (_, i) => frontSlots.find((s) => s.index === i) ?? null,
-  );
-  const backDisplay = Array.from(
-    { length: 3 },
-    (_, i) => backSlots.find((s) => s.index === i) ?? null,
-  );
+  const [front1, front2, back1, back2, back3] = [
+    getSquadByPositionForSlotType(slots, POSITIONS.FRONT_1),
+    getSquadByPositionForSlotType(slots, POSITIONS.FRONT_2),
+    getSquadByPositionForSlotType(slots, POSITIONS.BACK_1),
+    getSquadByPositionForSlotType(slots, POSITIONS.BACK_2),
+    getSquadByPositionForSlotType(slots, POSITIONS.BACK_3),
+  ];
 
   return (
     <>
       <div className="flex flex-col items-center gap-6">
         {/* Front row */}
         <div className="flex gap-4">
-          {frontDisplay.map((slot, n) => (
-            <HeroSlot
-              key={`front-${slot?.index}`}
-              slot={slot}
-              onClick={() =>
-                handleSlotClick(POSITIONS.FRONT, slot?.index ?? n, "view")
-              }
-              onEdit={() =>
-                handleSlotClick(POSITIONS.FRONT, slot?.index ?? n, "edit")
-              }
-            />
-          ))}
+          <HeroSlot
+            key={`front-1`}
+            slot={front1}
+            onClick={() => handleSlotClick(POSITIONS.FRONT_1, 0, "view")}
+            onEdit={() => handleSlotClick(POSITIONS.FRONT_1, 0, "edit")}
+          />
+          <HeroSlot
+            key={`front-2`}
+            slot={front2}
+            onClick={() => handleSlotClick(POSITIONS.FRONT_2, 1, "view")}
+            onEdit={() => handleSlotClick(POSITIONS.FRONT_2, 1, "edit")}
+          />
         </div>
 
         {/* Divider */}
@@ -142,18 +140,24 @@ export function SquadEditor({
 
         {/* Back row */}
         <div className="flex gap-4">
-          {backDisplay.map((slot, n) => (
-            <HeroSlot
-              key={`back-${slot?.index}-${n}`}
-              slot={slot}
-              onClick={() =>
-                handleSlotClick(POSITIONS.BACK, slot?.index ?? n, "view")
-              }
-              onEdit={() =>
-                handleSlotClick(POSITIONS.BACK, slot?.index ?? n, "edit")
-              }
-            />
-          ))}
+          <HeroSlot
+            key={`back-1`}
+            slot={back1}
+            onClick={() => handleSlotClick(POSITIONS.BACK_1, 0, "view")}
+            onEdit={() => handleSlotClick(POSITIONS.BACK_1, 0, "edit")}
+          />
+          <HeroSlot
+            key={`back-2`}
+            slot={back2}
+            onClick={() => handleSlotClick(POSITIONS.BACK_2, 1, "view")}
+            onEdit={() => handleSlotClick(POSITIONS.BACK_2, 1, "edit")}
+          />
+          <HeroSlot
+            key={`back-3`}
+            slot={back3}
+            onClick={() => handleSlotClick(POSITIONS.BACK_3, 2, "view")}
+            onEdit={() => handleSlotClick(POSITIONS.BACK_3, 2, "edit")}
+          />
         </div>
         <Button className={"cursor-pointer"} onClick={() => onSave(slots)}>
           Save

@@ -1,4 +1,4 @@
-import { saveOpponentSquad } from "@/api/opponents";
+import { opponentSquadQuery, saveOpponentSquad } from "@/api/opponents";
 import { APP_PATHS, OPPONENT_ID } from "@/constants";
 import type { SquadSlotRequest } from "@/dto";
 import { SquadEditor } from "@/elements/SquadEditor";
@@ -10,6 +10,11 @@ import { ChevronLeft } from "lucide-react";
 
 export const Route = createFileRoute("/opponents/$opponentSquadId")({
   component: OpponentEditorPage,
+  loader: async ({ context, params }) => {
+    await context.queryClient.ensureQueryData(
+      opponentSquadQuery(OPPONENT_ID, Number(params.opponentSquadId)),
+    );
+  },
 });
 
 function OpponentEditorPage() {

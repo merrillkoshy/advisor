@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,6 +27,9 @@ public class HeroSeeder {
     private final SkillRepository skillRepo;
     private final StatKeyRepository statKeyRepo;
     private final SkillEffectRepository skillEffectRepo;
+
+    @Value("${supabase.storage.base-url}")
+    private String storageBaseUrl;
 
     public HeroSeeder(HeroRepository heroRepository, SkillRepository skillRepo, StatKeyRepository statKeyRepo,
             SkillEffectRepository skillEffectRepo) {
@@ -62,9 +66,9 @@ public class HeroSeeder {
             String name = heroData.get("name").asText();
             Hero hero = heroRepository.findByName(name).orElse(new Hero());
 
-            JsonNode imageUrl = heroData.get("imageUrl");
-            hero.setName(heroData.get("name").asText());
-            hero.setImageUrl(imageUrl != null && !imageUrl.isNull() ? imageUrl.asText() : null);
+            String heroName = heroData.get("name").asText();
+            hero.setName(heroName);
+            hero.setImageUrl(storageBaseUrl + "/heroes/hero-" + heroName.toLowerCase() + ".png");
             hero.setRank(heroData.get("rank").asText());
             hero.setType(heroData.get("type").asText());
             hero.setTier(heroData.get("tier").asText());
@@ -82,17 +86,18 @@ public class HeroSeeder {
                 continue;
 
             for (JsonNode skillData : skills) {
-                if (existingSkills.contains(hero.getName() + ":" + skillData.get("name").asText())) { // Skip if skill
-                                                                                                      // already exists
-                    continue;
-                }
-                Skill skill = new Skill();
+                Skill skill = skillRepo.findByHeroIdAndName(hero.getId(), skillData.get("name").asText())
+                        .orElse(new Skill());
                 skill.setHero(hero);
                 skill.setType(skillData.get("type").asText());
                 skill.setName(skillData.get("name").asText());
                 skill.setPriority(skillData.get("priority").asInt());
                 skill.setDescription(skillData.get("description").asText());
                 skill.setTarget(skillData.get("target").asText());
+                skill.setImageUrl(
+                        storageBaseUrl + "/heroes/skills/"
+                                + skillData.get("name").asText().toLowerCase().replace(" ", "_")
+                                + ".png");
 
                 JsonNode cooldown = skillData.get("cooldown_s");
                 skill.setCooldown(cooldown.isNull() ? null : cooldown.asDouble());

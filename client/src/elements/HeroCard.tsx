@@ -16,9 +16,10 @@ import { useState } from "react";
 
 interface HeroCardProps {
   hero: Hero;
+  onClick: () => void;
 }
 
-export function HeroCard({ hero }: HeroCardProps) {
+export function HeroCard({ hero, onClick }: HeroCardProps) {
   const [expanded, setExpanded] = useState(false);
   const rankColor = rankColorMap[hero.rank] ?? "text-white";
 
@@ -28,6 +29,7 @@ export function HeroCard({ hero }: HeroCardProps) {
         "rounded-xl border border-white/10 bg-white/5 overflow-hidden",
         "transition-all duration-200 hover:border-white/20 hover:bg-white/8",
       )}
+      onClick={onClick}
     >
       {/* Top accent bar — rank color */}
       <div

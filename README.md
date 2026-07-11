@@ -1,46 +1,53 @@
-Here's the rewritten README:
-
----
-
 # lastwar-advisor
-
+  
 A formation advisor for Last War: Survival — a mobile strategy game. Given an opponent's squad composition, the tool recommends the optimal counter formation and explains why, using a layered probability engine that factors in unit type matchups, hero skill synergies, damage types, gear profiles, and formation bonuses.
 
+  
 The output is not a false-precision percentage. It is a confidence tier with a human-readable coaching explanation. Think less "73.4% win probability" and more "Put Morrison front row — he'll melt Scarlett." The product philosophy is: **we sell peace of mind, not precision math.**
 
+  
 Built for friends as an internal tool, and as a portfolio project demonstrating full-stack engineering across a non-trivial domain.
 
----
 
 ## Stack
 
-| Layer           | Technology                         |
-| --------------- | ---------------------------------- |
-| Frontend        | React + TypeScript (Vite)          |
-| Routing         | TanStack Router                    |
-| Server State    | TanStack Query                     |
-| UI Components   | shadcn/ui (Nova preset, dark mode) |
-| Backend         | Java 25 + Spring Boot 3            |
-| ORM             | Spring Data JPA / Hibernate        |
-| Database        | PostgreSQL 16                      |
-| Local Infra     | Docker                             |
-| Frontend Deploy | Vercel                             |
-| Backend Deploy  | Render                             |
-| Database Deploy | Supabase                           |
+| Layer | Technology         |
+| ------ | ---------------- |
+| Frontend | React 19 + TypeScript (Vite 8) |
+| Routing | TanStack Router |
+| Server State | TanStack Query v5 |
+| UI Components | Radix/Base UI + Tailwind CSS v4 + lucide-react |
+| Real-Time | WebSockets (STOMP / SockJS client) |
+| Backend | Java 25 + Spring Boot 3.4.x (Parent 4.0.5 ready) |
+| ORM | Spring Data JPA / Hibernate |
+| Database | PostgreSQL 16 (using PostgreSQLDialect) |
+| Local Infra | Docker |
+| Frontend Deploy | Vercel |
+| Backend Deploy | Render |
+| Database Deploy | Supabase |
 
----
+  
 
 ## Project Structure
 
+
 ```
 lastwar-advisor/
-├── client/          # React + TypeScript frontend (Vite)
+├── client/                 # React + TypeScript frontend (Vite)
+│   └── src/
+│       └── api/            # TanStack Query & Fetch wrappers
+│       └── components/     # Shadcn / Base UI building blocks
+│       └── elements/       # Domain-specific complex views (Battlefield, Layouts)
+│       └── routes/         # TanStack file-based routes
+│       └── utils/          # Client side helpers & static mappings
 ├── server/          # Java Spring Boot backend
 │   └── src/
 │       └── main/
 │           ├── java/com/lastwar_advisor/server/
+│           │   ├── config/          # WebSocket broker config
 │           │   ├── controller/      # REST controllers
 │           │   ├── dto/             # Request/response DTOs
+│           │   ├── engine/          # Combat resolution graph, blueprints, and calculation maps
 │           │   ├── entity/          # JPA entities
 │           │   ├── repository/      # Spring Data repositories
 │           │   ├── service/         # Business logic
@@ -52,40 +59,21 @@ lastwar-advisor/
 └── docker-compose.yml
 ```
 
----
 
-## Data Model
+## Data Model & Engine Architecture
 
-The engine is built around a universal **stat dictionary** — a `StatKey` table that defines every possible modifier in the game as a typed key with a category. Every numeric effect in the system, whether from a hero skill, a tech tree, a drone component, or a decoration, references a `StatKey` row. This means adding a new game mechanic is a data operation, not a schema migration.
+The simulator architecture features an isolated **Opponent mirroring paradigm**. Both sides of the conflict map explicitly to dedicated domain spaces (`Player` vs `Opponent`, `Squad` vs `OpponentSquad`) ensuring independent gear profiles, drone configurations, and milestone levels.
 
-### Core entities
 
-**Hero** — base stats (ATK, DEF, HP, SPD), rank (UR/SSR/SR), type (Tank/Aircraft/MissileVehicle), and tier.
+### The Engine Flow
 
-**Skill** — belongs to a Hero. Has a type (ACTIVE/PASSIVE/ULTIMATE), cooldown, target type, and damage type.
+1. **Blueprints**: The `BlueprintBuilder` resolves aggregate data into `OffenseProfile`, `DefenseProfile`, `SupportProfile`, and `SynergyProfile` metrics (e.g., factoring in full composition limits such as a 5-unit bonus yielding a `0.2` multi).
 
-**SkillEffect** — belongs to a Skill. Stores a single numeric or boolean value at a specific skill level (1, 20, 40), keyed against a `StatKey`.
+2. **Tick Resolver**: The `ScenarioEngine` steps through time-slices where the `TickResolver` fires `SkillActivationResolver`, evaluates `DamageCalculator`, updates `DebuffResolver` state durations, and verifies dead elements via `KillOrderResolver`.
 
-**Gear** — one of four equipment slots (Gun, Chip, Armor, Radar). Has a base name, mythic name, and base power. Scaling stats are stored in `GearStat` with a base value and increment per 10 levels. Star and mythic unlocks are stored in `GearLevel` with fixed values at levels 50 through 90.
+3. **WebSockets**: Live tick updates are pushed downstream across a message broker over active state pathways.
 
-**Player** — a named player record. Seeded with a single default player (`Azrael`).
-
-**Squad** — belongs to a Player. A player has up to 3 squads. Auto-created on first access.
-
-**SquadSlot** — belongs to a Squad. Stores a hero reference, slot position (`FRONT`/`BACK`), slot index, and per-gear star ratings. Upserted on save — no delete-and-recreate.
-
-### Player module pattern
-
-Every external factor that influences a battle — Tech, Decorations, Drone, Overlord, Wall of Honor, Units, Cosmetics, Tactics Cards — follows the same normalized pattern:
-
-```
-[Module]Profile   — the player's configuration for that module
-[Module]Value     — individual stat contributions, each referencing a StatKey
-```
-
-Adding a new modifier to any module is inserting a row, not altering the schema.
-
----
+  
 
 ## Local Development
 
@@ -93,104 +81,90 @@ Adding a new modifier to any module is inserting a row, not altering the schema.
 
 - JDK 25 (Temurin recommended)
 - Docker Desktop
-- Maven (or use the included `mvnw` wrapper)
 - Node.js 20+
+
+  
 
 ### Setup
 
 1. Clone the repo and start the database:
-
 ```bash
 docker compose up -d
 ```
-
-> **Note:** The Docker container runs PostgreSQL on port **5433** to avoid conflicts with any local PostgreSQL instance running on the default port 5432.
-
-2. Create `server/src/main/resources/application.properties`:
-
-```properties
+  
+2. Create server/src/main/resources/application.properties:
+```bash
 spring.datasource.url=jdbc:postgresql://localhost:5433/lastwar
 spring.datasource.username=your_username
 spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 ```
 
-3. Start the backend:
-
+3. Start the backend
 ```bash
 cd server
 ./mvnw spring-boot:run
 ```
 
-The app seeds all data automatically on first startup — stat keys, heroes, drone components, overlord classes, and gear. No manual seed step required.
-
-4. Start the frontend:
-
+4. Start the frontend
 ```bash
-cd client && npm install && npm run dev
+cd client
+npm install
+npm run dev
 ```
 
-The frontend expects the backend at `http://localhost:8080`. Set `VITE_API_URL` to override before deploying.
 
----
 
-## Seeding
+### API Endpoints
 
-Data is seeded automatically via `DataSeeder` which runs on every startup using Spring Boot's `ApplicationRunner` hook. Each seeder is idempotent — it checks for existing rows before inserting and skips anything already present. Adding new game data means updating the seeder and constants files, not altering the schema.
+##### Advisor & Simulator
 
-Current seed state:
+| Method | Endpoint         | Description                                              |
+| ------ | ---------------- | -------------------------------------------------------- |
+| POST   | /advisor/analyze | Evaluates a mock-up battle scenario and saves parameters |
 
-- 103 StatKeys across all game modules
-- 30 Heroes (5 with full skill and effect data)
-- 6 Drone Components with StatKey links
-- 7 Overlord Classes
-- 4 Gears with scaling stats and star/mythic level unlocks
-- 1 Player with 3 auto-created Squads
+##### Player Records & Configurations
 
----
+| Method | Endpoint                               | Description                                         |
+| ------ | -------------------------------------- | --------------------------------------------------- |
+| GET    | /players/:playerId/squads              | Fetches saved player configurations                 |
+| GET    | /players/:playerId/squads/:squadNumber | Retrieves layout details for a single squad number  |
+| PUT    | /players/:playerId/squads/:squadNumber | Saves modified hero configurations and gear metrics |
+| GET    | /players/:playerId/drone               | Fetches active drone levels and component lists     |
 
-## API Endpoints
 
-| Method | Endpoint                        | Description                              |
-| ------ | ------------------------------- | ---------------------------------------- |
-| GET    | `/heroes`                       | All heroes with skills and skill effects |
-| GET    | `/heroes/:id`                   | Single hero by id                        |
-| GET    | `/drone-components`             | All drone components with stat keys      |
-| GET    | `/overlord/classes`             | All overlord classes                     |
-| GET    | `/players/:playerId/squads`     | All squads for a player                  |
-| GET    | `/players/:playerId/squads/:id` | Single squad with slots and hero data    |
-| PUT    | `/players/:playerId/squads/:id` | Save squad slot configuration            |
+##### Opponent Configurations
 
----
+| Method | Endpoint                               | Description                                         |
+| ------ | -------------------------------------- | --------------------------------------------------- |
+| GET    | /opponents/:opponentId/squads          | Lists all squads stored for target reference profile|
+| GET    | opponents/:opponentId/squads/:squadNumber | Retrieves a specified opponent squad map  |
+| PUT    | /opponents/:opponentId/squads/:squadNumber | Modifies configuration parameters of an opponent squad |
 
-## What's Built
 
-### Backend
+##### Reference Registries
 
-- Full entity graph: `Hero → Skill → SkillEffect`, `Gear → GearStat / GearLevel`, `Player → Squad → SquadSlot`
-- Proper JPA relationships with named `@JsonManagedReference` / `@JsonBackReference` pairs to handle circular serialization
-- Upsert logic for `SquadSlot` — idempotent saves, no destructive deletes
-- Auto-create squad on first access (no 404 on new players)
-- Swagger UI available at `/swagger-ui.html`
+| Method | Endpoint                               | Description                                         |
+| ------ | -------------------------------------- | --------------------------------------------------- |
+| GET    | /heroes          | Full list of heroes along with active descriptors|
+| GET    | heroes/:id | Specialized lookups for precise hero entries  |
+| GET    | /gears | Base and mythic baseline rules for item arrays |
 
-### Frontend
 
-- Dark mode globally via `class="dark"` on `<html>`
-- `/squads` — squad index with 3 squad cards showing saved hero previews
-- `/squads/$squadId` — squad editor with formation layout (2 front, 3 back — player's perspective)
-- `HeroPicker` drawer grouped by type, dimming already-picked heroes
-- `HeroDetail` panel with 4 gear slots, 5-dot star selector, live computed gear stats, and inline save
-- `HeroCard` with rank color accent bar, type icon overlay, collapsible skill panel
-- Pen icon on filled slots to swap heroes without losing formation context
-- Full save/load round trip — heroes and gear stars persist to DB and reload correctly
+##### What's Built
 
----
+###### Backend Simulation Layer
 
-## Roadmap
+• Lazy Initialization Handlers: Custom JPQL relations mapping (`LEFT JOIN FETCH`) eliminate LazyInitializationException loops and ‭$N+1$‬‭‬ downstream fetch patterns on deep graphs.
 
-- [ ] Complete skill data for remaining 25 heroes (via admin UI)
-- [ ] Admin UI for hero, skill, and gear data entry
-- [ ] Advisor screen — opponent squad input, recommendation output, confidence tiers
-- [ ] Scenario module (v2)
-- [ ] Roster-constrained recommendations (v2)
+• Deterministic Combat Loops: Real-time evaluation mapping targets (`FRONT_ROW`, `LOWEST_HP`, `BACK_ROW`) allowing comprehensive damage verification arrays.
+
+Frontend Presentation Layer
+
+• Battlefield Analytics HUD: Renders interactive battle state summaries showing real-time timestamps, attack tracking logs, and aggregate hit logs.
+
+• Opponent Manager Framework: Dedicated management pages mapping /opponents editor workspaces mirrored directly over standard player options.
+
+• Type-Safe Routing Layouts: Strict compilation verification backed entirely by automatic route configurations through TanStack Router plugins.

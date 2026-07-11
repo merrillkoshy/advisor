@@ -18,6 +18,7 @@ type SkillEffect = {
   id: number;
   name: string;
   description: string;
+  level: number;
 };
 
 type Skill = {
@@ -26,6 +27,8 @@ type Skill = {
   description: string;
   cooldown: number;
   effects: SkillEffect[];
+  imageUrl: string | null;
+  priority: number;
 };
 
 type Hero = {
@@ -124,9 +127,45 @@ interface Drone {
   drone: DroneBase;
   components: DroneComponent[];
 }
+interface AdvisorResult {
+  avgHerosSurvived: number;
+  explanation: string;
+  tier: string;
+  winRate: number;
+}
+type DamageEvent = {
+  attackerName: string;
+  rawDamage: number;
+  skillName: string;
+  targetName: string;
+  timestamp: number;
+};
+
+type HeroSkillSnapshot = {
+  [key: string]: {
+    skillName: string;
+    cooldownRemaining: number;
+    firedThisTick: boolean;
+  };
+};
+type HeroSnapshot = {
+  alive: boolean;
+  currentHp: number;
+  heroName: string;
+  maxHp: number;
+  skills: HeroSkillSnapshot;
+};
+interface TickSnapshot {
+  elapsedTime: number;
+  playerStates: HeroSnapshot[];
+  enemyStates: HeroSnapshot[];
+  damageEvents: DamageEvent[];
+}
 
 export type {
+  AdvisorResult,
   APP_PATHS,
+  DamageEvent,
   Drone,
   DroneComponent,
   FORMATION_POSITIONS,
@@ -134,9 +173,11 @@ export type {
   GearLevel,
   GearStats,
   Hero,
+  HeroSnapshot,
   Skill,
   SkillEffect,
   Slot,
   Squad,
   SquadSlot,
+  TickSnapshot,
 };

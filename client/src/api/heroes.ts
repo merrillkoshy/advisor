@@ -7,3 +7,10 @@ export const heroesQuery = queryOptions({
   queryKey: ["heroes"],
   queryFn: () => apiGet<Hero[]>("/heroes"),
 });
+
+export const heroQuery = (heroId: number) =>
+  queryOptions({
+    queryKey: ["hero", heroId],
+    queryFn: () => apiGet<Hero>(`/heroes/${heroId}`),
+    enabled: !!heroId,
+  });

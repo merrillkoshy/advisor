@@ -13,4 +13,7 @@ public interface HeroRepository extends JpaRepository<Hero, Long> {
     List<Hero> findAllWithSkillsAndEffects();
 
     Optional<Hero> findByName(String name);
+
+    @Query("SELECT h FROM Hero h LEFT JOIN FETCH h.skills s LEFT JOIN FETCH s.effects WHERE h.id = :id")
+    Hero findByIdWithSkillsAndEffects(Long id);
 }

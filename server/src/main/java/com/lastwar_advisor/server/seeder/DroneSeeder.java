@@ -3,6 +3,7 @@ package com.lastwar_advisor.server.seeder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.lastwar_advisor.server.entity.DroneComponent;
@@ -22,6 +23,9 @@ public class DroneSeeder {
         private final DroneSkillTierRepository droneSkillTierRepository;
 
         private final StatKeyRepository statKeyRepo;
+
+        @Value("${supabase.storage.base-url}")
+        private String storageBaseUrl;
 
         public DroneSeeder(DroneComponentRepository droneComponentRepo,
                         DroneMilestoneRepository droneMilestoneRepository,
@@ -44,7 +48,7 @@ public class DroneSeeder {
                                                 List.of(
                                                                 new Object[] { "drone_hp", 1, 2700.0, 197942.0 },
                                                                 new Object[] { "crit_reduction_percent", 8, 1.0, 1.0 }),
-                                                "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/radar_research.png"
+                                                storageBaseUrl + "/drone/components/radar_research.png"
                                 },
                                 new Object[] { "Turbo Engine Research",
                                                 "Affects Hero & Overlord HP and boosts hero HP percentage", 12,
@@ -52,28 +56,28 @@ public class DroneSeeder {
                                                                 new Object[] { "hero_overlord_hp", 1, 1350.0,
                                                                                 144601.0 },
                                                                 new Object[] { "hero_hp_boost_percent", 8, 5.0, 5.0 }),
-                                                "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/turbo_engine_research.png"
+                                                storageBaseUrl + "/drone/components/turbo_engine_research.png"
                                 },
                                 new Object[] { "External Armor Research",
                                                 "Affects Hero & Overlord DEF and boosts hero defense percentage", 12,
                                                 List.of(
                                                                 new Object[] { "hero_overlord_def", 1, 6.0, 894.0 },
                                                                 new Object[] { "hero_def_boost_percent", 8, 5.0, 5.0 }),
-                                                "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/external_armor_research.png"
+                                                storageBaseUrl + "/drone/components/external_armor_research.png"
                                 },
                                 new Object[] { "Thermal Imager Research",
                                                 "Affects drone DEF and boosts crit rate percentage", 12,
                                                 List.of(
                                                                 new Object[] { "drone_def", 1, 13.0, 1873.0 },
                                                                 new Object[] { "crit_rate_percent", 8, 1.0, 2.5 }),
-                                                "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/thermal_imager_research.png"
+                                                storageBaseUrl + "/drone/components/thermal_imager_research.png"
                                 },
                                 new Object[] { "Fuel Cell Research",
                                                 "Affects drone ATK and boosts crit damage percentage", 12,
                                                 List.of(
                                                                 new Object[] { "drone_atk", 1, 64.0, 10637.0 },
                                                                 new Object[] { "crit_damage_percent", 8, 3.0, 4.0 }),
-                                                "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/fuel_cell_research.png"
+                                                storageBaseUrl + "/drone/components/fuel_cell_research.png"
                                 },
                                 new Object[] { "Airborne Missile Research",
                                                 "Affects Hero & Overlord ATK, boosts hero skill damage and hero ATK percentage",
@@ -83,7 +87,7 @@ public class DroneSeeder {
                                                                 new Object[] { "hero_skill_damage_percent", 1, 0.25,
                                                                                 0.75 },
                                                                 new Object[] { "hero_atk_boost_percent", 8, 5.0, 5.0 }),
-                                                "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/components/airborne_missile_research.png"
+                                                storageBaseUrl + "/drone/components/airborne_missile_research.png"
                                 });
 
                 for (Object[] c : components) {

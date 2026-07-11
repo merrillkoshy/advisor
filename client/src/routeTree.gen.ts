@@ -9,20 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as HeroesRouteImport } from './routes/heroes'
 import { Route as GearsRouteImport } from './routes/gears'
 import { Route as DroneRouteImport } from './routes/drone'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SquadsIndexRouteImport } from './routes/squads/index'
 import { Route as OpponentsIndexRouteImport } from './routes/opponents/index'
+import { Route as HeroesIndexRouteImport } from './routes/heroes/index'
 import { Route as SquadsSquadIdRouteImport } from './routes/squads/$squadId'
 import { Route as OpponentsOpponentSquadIdRouteImport } from './routes/opponents/$opponentSquadId'
+import { Route as HeroesHeroIdRouteImport } from './routes/heroes/$heroId'
 
-const HeroesRoute = HeroesRouteImport.update({
-  id: '/heroes',
-  path: '/heroes',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const GearsRoute = GearsRouteImport.update({
   id: '/gears',
   path: '/gears',
@@ -48,6 +44,11 @@ const OpponentsIndexRoute = OpponentsIndexRouteImport.update({
   path: '/opponents/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HeroesIndexRoute = HeroesIndexRouteImport.update({
+  id: '/heroes/',
+  path: '/heroes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SquadsSquadIdRoute = SquadsSquadIdRouteImport.update({
   id: '/squads/$squadId',
   path: '/squads/$squadId',
@@ -59,14 +60,20 @@ const OpponentsOpponentSquadIdRoute =
     path: '/opponents/$opponentSquadId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const HeroesHeroIdRoute = HeroesHeroIdRouteImport.update({
+  id: '/heroes/$heroId',
+  path: '/heroes/$heroId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
-  '/heroes': typeof HeroesRoute
+  '/heroes/$heroId': typeof HeroesHeroIdRoute
   '/opponents/$opponentSquadId': typeof OpponentsOpponentSquadIdRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/heroes/': typeof HeroesIndexRoute
   '/opponents/': typeof OpponentsIndexRoute
   '/squads/': typeof SquadsIndexRoute
 }
@@ -74,9 +81,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
-  '/heroes': typeof HeroesRoute
+  '/heroes/$heroId': typeof HeroesHeroIdRoute
   '/opponents/$opponentSquadId': typeof OpponentsOpponentSquadIdRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/heroes': typeof HeroesIndexRoute
   '/opponents': typeof OpponentsIndexRoute
   '/squads': typeof SquadsIndexRoute
 }
@@ -85,9 +93,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/drone': typeof DroneRoute
   '/gears': typeof GearsRoute
-  '/heroes': typeof HeroesRoute
+  '/heroes/$heroId': typeof HeroesHeroIdRoute
   '/opponents/$opponentSquadId': typeof OpponentsOpponentSquadIdRoute
   '/squads/$squadId': typeof SquadsSquadIdRoute
+  '/heroes/': typeof HeroesIndexRoute
   '/opponents/': typeof OpponentsIndexRoute
   '/squads/': typeof SquadsIndexRoute
 }
@@ -97,9 +106,10 @@ export interface FileRouteTypes {
     | '/'
     | '/drone'
     | '/gears'
-    | '/heroes'
+    | '/heroes/$heroId'
     | '/opponents/$opponentSquadId'
     | '/squads/$squadId'
+    | '/heroes/'
     | '/opponents/'
     | '/squads/'
   fileRoutesByTo: FileRoutesByTo
@@ -107,9 +117,10 @@ export interface FileRouteTypes {
     | '/'
     | '/drone'
     | '/gears'
-    | '/heroes'
+    | '/heroes/$heroId'
     | '/opponents/$opponentSquadId'
     | '/squads/$squadId'
+    | '/heroes'
     | '/opponents'
     | '/squads'
   id:
@@ -117,9 +128,10 @@ export interface FileRouteTypes {
     | '/'
     | '/drone'
     | '/gears'
-    | '/heroes'
+    | '/heroes/$heroId'
     | '/opponents/$opponentSquadId'
     | '/squads/$squadId'
+    | '/heroes/'
     | '/opponents/'
     | '/squads/'
   fileRoutesById: FileRoutesById
@@ -128,22 +140,16 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DroneRoute: typeof DroneRoute
   GearsRoute: typeof GearsRoute
-  HeroesRoute: typeof HeroesRoute
+  HeroesHeroIdRoute: typeof HeroesHeroIdRoute
   OpponentsOpponentSquadIdRoute: typeof OpponentsOpponentSquadIdRoute
   SquadsSquadIdRoute: typeof SquadsSquadIdRoute
+  HeroesIndexRoute: typeof HeroesIndexRoute
   OpponentsIndexRoute: typeof OpponentsIndexRoute
   SquadsIndexRoute: typeof SquadsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/heroes': {
-      id: '/heroes'
-      path: '/heroes'
-      fullPath: '/heroes'
-      preLoaderRoute: typeof HeroesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/gears': {
       id: '/gears'
       path: '/gears'
@@ -179,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OpponentsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/heroes/': {
+      id: '/heroes/'
+      path: '/heroes'
+      fullPath: '/heroes/'
+      preLoaderRoute: typeof HeroesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/squads/$squadId': {
       id: '/squads/$squadId'
       path: '/squads/$squadId'
@@ -193,6 +206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OpponentsOpponentSquadIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/heroes/$heroId': {
+      id: '/heroes/$heroId'
+      path: '/heroes/$heroId'
+      fullPath: '/heroes/$heroId'
+      preLoaderRoute: typeof HeroesHeroIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -200,9 +220,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DroneRoute: DroneRoute,
   GearsRoute: GearsRoute,
-  HeroesRoute: HeroesRoute,
+  HeroesHeroIdRoute: HeroesHeroIdRoute,
   OpponentsOpponentSquadIdRoute: OpponentsOpponentSquadIdRoute,
   SquadsSquadIdRoute: SquadsSquadIdRoute,
+  HeroesIndexRoute: HeroesIndexRoute,
   OpponentsIndexRoute: OpponentsIndexRoute,
   SquadsIndexRoute: SquadsIndexRoute,
 }
