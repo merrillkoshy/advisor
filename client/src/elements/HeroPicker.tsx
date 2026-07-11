@@ -8,14 +8,15 @@ import {
 import { typeIconMap } from "@/utils/typeIconMap";
 
 import NoHero from "@/assets/icons/no-hero.svg";
+import { SQUAD_TYPE } from "@/constants";
 import { Divider } from "@/elements/UI/Divider";
 import { cn } from "@/lib/utils";
 import type { Hero } from "@/types";
 
 const TYPE_SECTIONS: { key: string; label: string }[] = [
-  { key: "Tank", label: "Tank" },
-  { key: "Aircraft", label: "Air" },
-  { key: "MissileVehicle", label: "Missile" },
+  { key: SQUAD_TYPE.TANK, label: "Tank" },
+  { key: SQUAD_TYPE.AIRCRAFT, label: "Air" },
+  { key: SQUAD_TYPE.MISSILE_VEHICLE, label: "Missile" },
 ];
 
 interface HeroPickerProps {

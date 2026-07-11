@@ -3,6 +3,7 @@ package com.lastwar_advisor.server.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,10 @@ public class HeroController {
     @GetMapping
     public List<Hero> getHeroes() {
         return service.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Hero getHeroById(@PathVariable Long id) {
+        return service.getById(id);
     }
 }

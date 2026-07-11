@@ -20,4 +20,9 @@ public class HeroService {
     public List<Hero> getAll() {
         return repo.findAllWithSkillsAndEffects();
     }
+
+    @Transactional
+    public Hero getById(Long id) {
+        return repo.findByIdWithSkillsAndEffects(id);
+    }
 }

@@ -2,13 +2,12 @@
   {
     "name": "Kimberly",
     "rank": "UR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-kimberly.png",
+    "type": "TANK",
     "tier": "S",
     "power": 95,
-    "atk": 2200,
-    "def": 3200,
-    "hp": 28000,
+    "atk": 32108,
+    "def": 3903,
+    "hp": 528440,
     "spd": 85,
     "skills": [
       {
@@ -95,13 +94,12 @@
   {
     "name": "Williams",
     "rank": "UR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-williams.png",
+    "type": "TANK",
     "tier": "S",
     "power": 95,
-    "atk": 1800,
-    "def": 3800,
-    "hp": 32000,
+    "atk": 17409,
+    "def": 4549,
+    "hp": 1235803,
     "spd": 70,
     "skills": [
       {
@@ -110,13 +108,13 @@
         "name": "Stun Bomb",
         "priority": 3,
         "description": "Throws a stun bomb at enemies, dealing damage and stunning targets in the area.",
-        "cooldown_s": 10,
-        "target": "aoe",
+        "cooldown_s": 1.35,
+        "target": "single",
         "damage_type": "physical",
         "scaling": {
-          "lvl1": { "atk_percent": null, "stun": true },
-          "lvl20": { "atk_percent": null, "stun": true },
-          "lvl40": { "atk_percent": null, "stun": true }
+          "lvl1": { "atk_percent": 102.25, "stun": true },
+          "lvl20": { "atk_percent": 204.55, "stun": true },
+          "lvl40": { "atk_percent": 408.11, "stun": true }
         },
         "key_stats": ["AoE Damage", "Stun", "Crowd Control"]
       },
@@ -195,13 +193,12 @@
   {
     "name": "Murphy",
     "rank": "UR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-murphy.png",
+    "type": "TANK",
     "tier": "S",
     "power": 95,
-    "atk": 1600,
-    "def": 3500,
-    "hp": 35000,
+    "atk": 17586,
+    "def": 4537,
+    "hp": 1217150,
     "spd": 65,
     "skills": [
       {
@@ -298,13 +295,12 @@
   {
     "name": "Marshall",
     "rank": "UR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-marshall.png",
+    "type": "TANK",
     "tier": "S",
     "power": 95,
-    "atk": 2000,
-    "def": 2800,
-    "hp": 27000,
+    "atk": 27936,
+    "def": 4041,
+    "hp": 634200,
     "spd": 78,
     "skills": [
       {
@@ -400,13 +396,12 @@
   {
     "name": "DVA",
     "rank": "UR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-dva.png",
+    "type": "AIRCRAFT",
     "tier": "S",
     "power": 95,
-    "atk": 3800,
-    "def": 1200,
-    "hp": 15000,
+    "atk": 29860,
+    "def": 3974,
+    "hp": 580867,
     "spd": 110,
     "skills": [
       {
@@ -493,8 +488,7 @@
   {
     "name": "Monica",
     "rank": "SSR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-monica.png",
+    "type": "TANK",
     "tier": "S",
     "power": 95,
     "atk": 1600,
@@ -506,138 +500,1174 @@
   {
     "name": "Stetmann",
     "rank": "UR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-stetman.png",
+    "type": "TANK",
     "tier": "A",
     "power": 85,
-    "atk": 2400,
-    "def": 2800,
-    "hp": 26000,
+    "atk": 33861,
+    "def": 3851,
+    "hp": 493579,
     "spd": 80,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Orb Lightning",
+        "priority": 1,
+        "description": "Shoot a small electric ball, dealing Energy Damage equal to 445.48% of the Attack in its path.",
+        "cooldown_s": 1.45,
+        "target": "single",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 445.48,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 445.48,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 445.48,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": [
+          "Piercing Damage",
+          "Energy Damage",
+          "Burst",
+          "Line Attack"
+        ]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Critical Charge",
+        "priority": 3,
+        "description": "Boost this hero's Crit Rate by +30.00% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "crit_rate_percent": 30
+          },
+          "lvl20": {
+            "crit_rate_percent": 39
+          },
+          "lvl40": {
+            "crit_rate_percent": 45
+          }
+        },
+        "key_stats": ["Crit Rate", "Damage Scaling", "Self Buff"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Lightning Rush",
+        "priority": 2,
+        "description": "Shoot 3 electric balls at 3 random enemies, each dealing Energy Damage equal to 695.86% of the Attack.",
+        "cooldown_s": 10,
+        "target": "random_enemies",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": {
+            "damage_percent_per_hit": 695.86,
+            "lightning_ball_count": 3,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent_per_hit": 695.86,
+            "lightning_ball_count": 4,
+            "additional_damage_percent": 70
+          },
+          "lvl40": {
+            "damage_percent_per_hit": 695.86,
+            "lightning_ball_count": 5,
+            "additional_damage_percent": 120
+          }
+        },
+        "key_stats": [
+          "Multi Target Damage",
+          "Energy Damage",
+          "Burst",
+          "Random Targeting"
+        ]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "Schuyler",
     "rank": "UR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-schuyler.png",
+    "type": "AIRCRAFT",
     "tier": "A",
     "power": 85,
-    "atk": 3400,
-    "def": 1400,
-    "hp": 16000,
+    "atk": 31306,
+    "def": 3928,
+    "hp": 546006,
     "spd": 105,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Power Barrage",
+        "priority": 1,
+        "description": "Fire a missile at the enemy, dealing Energy Damage equal to 309.32% of the Attack.",
+        "cooldown_s": 1,
+        "target": "enemy",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": ["Single Target Damage", "Energy Damage", "Burst"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Antimatter Armor",
+        "priority": 3,
+        "description": "Boost this hero's Attack by +40.00% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 40
+          },
+          "lvl20": {
+            "atk_percent": 52
+          },
+          "lvl40": {
+            "atk_percent": 60
+          }
+        },
+        "key_stats": ["Attack Buff", "Damage Scaling", "Self Buff"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Blast Frenzy",
+        "priority": 2,
+        "description": "Prioritize attacking 1 back-row unit, dealing Energy Damage equal to 927.52% of the Attack with a 20% chance to stun the target for 2 seconds.",
+        "cooldown_s": 10,
+        "target": "back_row_enemy",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 927.52,
+            "target_count": 1,
+            "additional_damage_percent": 30,
+            "stun_chance_percent": 20,
+            "stun_duration_seconds": 2
+          },
+          "lvl20": {
+            "damage_percent": 927.52,
+            "target_count": 2,
+            "additional_damage_percent": 70,
+            "stun_chance_percent": 20,
+            "stun_duration_seconds": 2
+          },
+          "lvl40": {
+            "damage_percent": 927.52,
+            "target_count": 3,
+            "additional_damage_percent": 120,
+            "stun_chance_percent": 20,
+            "stun_duration_seconds": 2
+          }
+        },
+        "key_stats": ["Back Row Targeting", "Energy Damage", "Stun", "Burst"]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "Morrison",
     "rank": "UR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-morisson.png",
+    "type": "AIRCRAFT",
     "tier": "A",
     "power": 85,
-    "atk": 3600,
-    "def": 1300,
-    "hp": 16000,
+    "atk": 29411,
+    "def": 3989,
+    "hp": 592458,
     "spd": 108,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Full-Auto Machine Gun",
+        "priority": 1,
+        "description": "Attack with a Minigun, dealing Physical Damage equal to 309.32% of the Attack.",
+        "cooldown_s": 1,
+        "target": "enemy",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": ["Single Target Damage", "Physical Damage", "Burst"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Full Firepower",
+        "priority": 3,
+        "description": "Boost this hero's Physical Damage by +30.00% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "physical_damage_percent": 30
+          },
+          "lvl20": {
+            "physical_damage_percent": 39
+          },
+          "lvl40": {
+            "physical_damage_percent": 45
+          }
+        },
+        "key_stats": ["Physical Damage Buff", "Damage Scaling", "Self Buff"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Armor-Piercing Shot",
+        "priority": 2,
+        "description": "Use a Minigun to strike random enemy units 10 times, each hit dealing Physical Damage equal to 193.38% of the Attack, and each attack reduces the Defense of the enemy unit by 5% (up to 25% for the same target), lasting 9 seconds.",
+        "cooldown_s": 10,
+        "target": "random_enemies",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent_per_hit": 193.38,
+            "attack_count": 10,
+            "additional_damage_percent": 30,
+            "defense_reduction_per_hit_percent": 5,
+            "max_defense_reduction_percent": 25,
+            "debuff_duration_seconds": 9
+          },
+          "lvl20": {
+            "damage_percent_per_hit": 193.38,
+            "attack_count": 15,
+            "additional_damage_percent": 70,
+            "defense_reduction_per_hit_percent": 5,
+            "max_defense_reduction_percent": 25,
+            "debuff_duration_seconds": 9
+          },
+          "lvl40": {
+            "damage_percent_per_hit": 193.38,
+            "attack_count": 20,
+            "additional_damage_percent": 120,
+            "defense_reduction_per_hit_percent": 5,
+            "max_defense_reduction_percent": 25,
+            "debuff_duration_seconds": 9
+          }
+        },
+        "key_stats": [
+          "Multi-Hit Damage",
+          "Defense Reduction",
+          "Physical Damage",
+          "Debuff"
+        ]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "Lucius",
     "rank": "UR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-lucius.png",
+    "type": "AIRCRAFT",
     "tier": "A",
     "power": 85,
-    "atk": 2200,
-    "def": 2600,
-    "hp": 22000,
+    "atk": 17890,
+    "def": 4518,
+    "hp": 1186545,
     "spd": 95,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Lightning Triple Strike",
+        "priority": 1,
+        "description": "Prioritize random targeting 1 front-row unit, dealing Physical Damage equal to 309.32% of the Attack.",
+        "cooldown_s": 1,
+        "target": "random_front_row_enemy",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": [
+          "Single Target Damage",
+          "Front Row Target",
+          "Physical Damage",
+          "Burst"
+        ]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Silver Armor",
+        "priority": 3,
+        "description": "Boosts damage reduction by first-row heroes by 13.00% in combat and further reduces the Energy Damage they take by 13.00%.",
+        "cooldown_s": null,
+        "target": "front_row_allies",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "damage_reduction_percent": 13,
+            "energy_damage_reduction_percent": 13
+          },
+          "lvl20": {
+            "damage_reduction_percent": 16,
+            "energy_damage_reduction_percent": 13
+          },
+          "lvl40": {
+            "damage_reduction_percent": 20.5,
+            "energy_damage_reduction_percent": 13
+          }
+        },
+        "key_stats": [
+          "Damage Reduction",
+          "Energy Resistance",
+          "Front Row Support",
+          "Defense"
+        ]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Knights Spirit",
+        "priority": 2,
+        "description": "Boosts all allies' Energy Damage Reduction by 19.90% from 5 seconds after activation.",
+        "cooldown_s": 10,
+        "target": "all_allies",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "team_energy_damage_reduction_percent": 19.9,
+            "duration_seconds": 5,
+            "aircraft_bonus_percent": null
+          },
+          "lvl20": {
+            "team_energy_damage_reduction_percent": 19.9,
+            "duration_seconds": 7,
+            "aircraft_bonus_percent": 7
+          },
+          "lvl40": {
+            "team_energy_damage_reduction_percent": 19.9,
+            "duration_seconds": 8,
+            "aircraft_bonus_percent": 15
+          }
+        },
+        "key_stats": [
+          "Team Protection",
+          "Energy Damage Reduction",
+          "Aircraft Buff",
+          "Support"
+        ]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "Carlie",
     "rank": "UR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-carlie.png",
+    "type": "AIRCRAFT",
     "tier": "A",
     "power": 85,
-    "atk": 2400,
-    "def": 2200,
-    "hp": 20000,
+    "atk": 16890,
+    "def": 4583,
+    "hp": 1293120,
     "spd": 100,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Dual-string Rocket",
+        "priority": 1,
+        "description": "Attack enemies, dealing physical damage equal to n% of the attack.",
+        "cooldown_s": 1,
+        "target": "enemy",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": ["Single Target Damage", "Physical Damage", "Burst"]
+      },
+      {
+        "id": 2,
+        "type": "ACTIVE",
+        "name": "Inferno Blaze",
+        "priority": 2,
+        "description": "Attack all enemies, dealing physical damage equal to n% attack and reducing the target's energy damage by n% for 5 sec.",
+        "cooldown_s": 10,
+        "target": "all_enemies",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "additional_damage_percent": 30,
+            "enemy_energy_damage_reduction_percent": null
+          },
+          "lvl20": {
+            "additional_damage_percent": 70,
+            "enemy_energy_damage_reduction_percent": 3
+          },
+          "lvl40": {
+            "additional_damage_percent": 120,
+            "enemy_energy_damage_reduction_percent": 6
+          }
+        },
+        "key_stats": ["AOE Damage", "Energy Damage Reduction", "Debuff"]
+      },
+      {
+        "id": 3,
+        "type": "PASSIVE",
+        "name": "Energy Adaption",
+        "priority": 3,
+        "description": "Reduce this hero's Energy Damage taken by n% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "energy_damage_taken_reduction_percent": 4
+          },
+          "lvl20": {
+            "energy_damage_taken_reduction_percent": 12
+          },
+          "lvl40": {
+            "energy_damage_taken_reduction_percent": 20
+          }
+        },
+        "key_stats": ["Energy Resistance", "Defense", "Survivability"]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "Swift",
     "rank": "UR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-swift.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "A",
     "power": 85,
-    "atk": 3400,
-    "def": 1500,
-    "hp": 16000,
+    "atk": 31233,
+    "def": 3930,
+    "hp": 547727,
     "spd": 105,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Targeted Strike",
+        "priority": 1,
+        "description": "Attack the unit with the lowest HP percentage with a missile, dealing small-scale Physical Damage equal to 408.11% of the Attack.",
+        "cooldown_s": 1.35,
+        "target": "lowest_hp_percent_enemy",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": [
+          "Execute Targeting",
+          "Physical Damage",
+          "Burst",
+          "Low HP Focus"
+        ]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Precise Guidance",
+        "priority": 3,
+        "description": "Boost this hero's Crit Rate by +30.00% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "crit_rate_percent": 30
+          },
+          "lvl20": {
+            "crit_rate_percent": 39
+          },
+          "lvl40": {
+            "crit_rate_percent": 45
+          }
+        },
+        "key_stats": ["Crit Rate", "Damage Scaling", "Self Buff"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Weakness Targeting",
+        "priority": 2,
+        "description": "Attack 3 random enemies dealing Physical Damage equal to 793.4% of the Attack.",
+        "cooldown_s": 10,
+        "target": "random_enemies",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 793.4,
+            "target_count": 3,
+            "additional_damage_percent": 30,
+            "self_attack_stack_percent": 5
+          },
+          "lvl20": {
+            "damage_percent": 793.4,
+            "target_count": 3,
+            "additional_damage_percent": 70,
+            "self_attack_stack_percent": 5
+          },
+          "lvl40": {
+            "damage_percent": 793.4,
+            "target_count": 3,
+            "additional_damage_percent": 120,
+            "self_attack_stack_percent": 10
+          }
+        },
+        "key_stats": [
+          "Multi Target Damage",
+          "Physical Damage",
+          "Scaling Attack Buff",
+          "Burst"
+        ]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "Fiona",
     "rank": "UR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-fiona.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "A",
     "power": 85,
-    "atk": 3200,
-    "def": 1400,
-    "hp": 15000,
+    "atk": 31703,
+    "def": 3915,
+    "hp": 537223,
     "spd": 100,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Double Trajectory",
+        "priority": 1,
+        "description": "Fire an anti-aircraft, dealing Physical Damage equal to 408.11% of the Attack.",
+        "cooldown_s": 1.35,
+        "target": "enemy",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": ["Single Target Damage", "Physical Damage", "Burst"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Ballistic Boost",
+        "priority": 3,
+        "description": "Boost this hero's Physical Damage by +30.00% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "physical_damage_percent": 30
+          },
+          "lvl20": {
+            "physical_damage_percent": 39
+          },
+          "lvl40": {
+            "physical_damage_percent": 45
+          }
+        },
+        "key_stats": ["Physical Damage Buff", "Damage Scaling", "Self Buff"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Atomic Blast",
+        "priority": 2,
+        "description": "Fire a rocket to hit all enemies, with each rocket dealing Physical Damage equal to 718.17% of the Attack.",
+        "cooldown_s": 10,
+        "target": "all_enemies",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 718.17,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 718.17,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 718.17,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": [
+          "AOE Damage",
+          "Physical Damage",
+          "Burst",
+          "All Enemy Targeting"
+        ]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "Adam",
     "rank": "UR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-adam.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "A",
     "power": 85,
-    "atk": 2000,
-    "def": 2600,
-    "hp": 24000,
+    "atk": 20837,
+    "def": 4349,
+    "hp": 950304,
     "spd": 80,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "MK43 Vehicle-Mounted Machine Gun",
+        "priority": 1,
+        "description": "Attack 1 random unit dealing Physical Damage equal to 309.32% of the Attack.",
+        "cooldown_s": 1,
+        "target": "random_enemy",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 309.32,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": ["Random Target Damage", "Physical Damage", "Burst"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Spike Armor",
+        "priority": 3,
+        "description": "In battle, reduces all damage received by front-row units by 13.00% with effects doubled for missile vehicle heroes in Counter Defense state.",
+        "cooldown_s": null,
+        "target": "front_row_allies",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "damage_reduction_percent": 13,
+            "missile_vehicle_counter_defense_multiplier": 2
+          },
+          "lvl20": {
+            "damage_reduction_percent": 17.5,
+            "missile_vehicle_counter_defense_multiplier": 2
+          },
+          "lvl40": {
+            "damage_reduction_percent": 20.5,
+            "missile_vehicle_counter_defense_multiplier": 2
+          }
+        },
+        "key_stats": [
+          "Front Row Protection",
+          "Damage Reduction",
+          "Missile Vehicle Buff",
+          "Defense"
+        ]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Counter Defense",
+        "priority": 2,
+        "description": "Enters a 'Counter Defense' state for 8.80 seconds after releasing the skill. Responds with a normal attack upon taking damage, up to once per second.",
+        "cooldown_s": 10,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "counter_defense_duration_seconds": 8.8,
+            "counterattack_trigger_rate_per_second": 1,
+            "counterattack_damage_bonus_percent": 0,
+            "front_row_shared": false
+          },
+          "lvl20": {
+            "counter_defense_duration_seconds": 7,
+            "counterattack_trigger_rate_per_second": 1,
+            "counterattack_damage_bonus_percent": 15,
+            "front_row_shared": false
+          },
+          "lvl40": {
+            "counter_defense_duration_seconds": 8,
+            "counterattack_trigger_rate_per_second": 1,
+            "counterattack_damage_bonus_percent": 30,
+            "front_row_shared": true
+          }
+        },
+        "key_stats": [
+          "Counterattack",
+          "Defensive Buff",
+          "Front Row Support",
+          "Sustain"
+        ]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "McGregor",
     "rank": "UR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-mcgregor.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "A",
     "power": 85,
-    "atk": 2600,
-    "def": 2400,
-    "hp": 28000,
+    "atk": 18300,
+    "def": 4492,
+    "hp": 1147428,
     "spd": 75,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Forward Rush",
+        "priority": 1,
+        "description": "Attack using a machine gun with each hit dealing Physical Damage equal to 408.11% of the Attack.",
+        "cooldown_s": 1.3,
+        "target": "enemy",
+        "damage_type": "physical",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": ["Single Target Damage", "Physical Damage", "Burst"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "HP Boost",
+        "priority": 3,
+        "description": "Reduces all damage taken in battle by 30% for this hero.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "damage_reduction_percent": 30
+          },
+          "lvl20": {
+            "damage_reduction_percent": 39
+          },
+          "lvl40": {
+            "damage_reduction_percent": 45
+          }
+        },
+        "key_stats": ["Damage Reduction", "Tankiness", "Self Buff"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Unyielding Heart",
+        "priority": 2,
+        "description": "Prioritizes taunting 2 front enemies reducing their attack by 16.50% for 8 seconds.",
+        "cooldown_s": 10,
+        "target": "front_row_enemies",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "target_count": 2,
+            "enemy_attack_reduction_percent": 16.5,
+            "duration_seconds": 8,
+            "counterattack_damage_bonus_percent": 0,
+            "front_row_counter_defense_shared": false
+          },
+          "lvl20": {
+            "target_count": 2,
+            "enemy_attack_reduction_percent": 16.5,
+            "duration_seconds": 7,
+            "counterattack_damage_bonus_percent": 15,
+            "front_row_counter_defense_shared": false
+          },
+          "lvl40": {
+            "target_count": 2,
+            "enemy_attack_reduction_percent": 16.5,
+            "duration_seconds": 8,
+            "counterattack_damage_bonus_percent": 30,
+            "front_row_counter_defense_shared": true
+          }
+        },
+        "key_stats": [
+          "Taunt",
+          "Attack Reduction",
+          "Front Row Control",
+          "Debuff"
+        ]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   },
   {
     "name": "Mason",
     "rank": "SSR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-mason.png",
+    "type": "TANK",
     "tier": "A",
     "power": 85,
-    "atk": 2000,
-    "def": 2600,
-    "hp": 22000,
+    "atk": 30621,
+    "def": 3950,
+    "hp": 562033,
     "spd": 80,
     "skills": []
   },
   {
     "name": "Violet",
     "rank": "SSR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-violet.png",
+    "type": "TANK",
     "tier": "A",
     "power": 85,
     "atk": 1800,
@@ -649,34 +1679,31 @@
   {
     "name": "Scarlett",
     "rank": "SSR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-scarlett.png",
+    "type": "TANK",
     "tier": "A",
     "power": 85,
-    "atk": 1600,
-    "def": 2800,
-    "hp": 24000,
+    "atk": 17586,
+    "def": 4537,
+    "hp": 1217150,
     "spd": 78,
     "skills": []
   },
   {
     "name": "Sarah",
     "rank": "SSR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-sarah.png",
+    "type": "AIRCRAFT",
     "tier": "A",
     "power": 85,
-    "atk": 2200,
-    "def": 1800,
-    "hp": 18000,
+    "atk": 25852,
+    "def": 4120,
+    "hp": 703922,
     "spd": 95,
     "skills": []
   },
   {
     "name": "Venom",
     "rank": "SSR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-venom.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "A",
     "power": 85,
     "atk": 2600,
@@ -688,8 +1715,7 @@
   {
     "name": "Richard",
     "rank": "SSR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-richard.png",
+    "type": "TANK",
     "tier": "B",
     "power": 75,
     "atk": 1900,
@@ -701,8 +1727,7 @@
   {
     "name": "Elsa",
     "rank": "SSR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-elsa.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "B",
     "power": 75,
     "atk": 2400,
@@ -714,8 +1739,7 @@
   {
     "name": "Braz",
     "rank": "SSR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-braz.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "B",
     "power": 75,
     "atk": 2500,
@@ -727,8 +1751,7 @@
   {
     "name": "Maxwell",
     "rank": "SSR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-maxwell.png",
+    "type": "AIRCRAFT",
     "tier": "B",
     "power": 75,
     "atk": 2400,
@@ -740,8 +1763,7 @@
   {
     "name": "Cage",
     "rank": "SSR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-cage.png",
+    "type": "AIRCRAFT",
     "tier": "B",
     "power": 75,
     "atk": 2000,
@@ -753,8 +1775,7 @@
   {
     "name": "Gump",
     "rank": "SR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-gump.png",
+    "type": "TANK",
     "tier": "D",
     "power": 50,
     "atk": 1200,
@@ -766,8 +1787,7 @@
   {
     "name": "Loki",
     "rank": "SR",
-    "type": "Tank",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-loki.png",
+    "type": "TANK",
     "tier": "D",
     "power": 50,
     "atk": 1300,
@@ -779,8 +1799,7 @@
   {
     "name": "Ambolt",
     "rank": "SR",
-    "type": "Aircraft",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-ambolt.png",
+    "type": "AIRCRAFT",
     "tier": "D",
     "power": 50,
     "atk": 1400,
@@ -792,8 +1811,7 @@
   {
     "name": "Kane",
     "rank": "SR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-kane.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "D",
     "power": 50,
     "atk": 1300,
@@ -805,14 +1823,125 @@
   {
     "name": "Tesla",
     "rank": "UR",
-    "type": "MissileVehicle",
-    "imageUrl": "https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/heroes/hero-tesla.png",
+    "type": "MISSILE_VEHICLE",
     "tier": "SS",
     "power": 98,
-    "atk": 3800,
-    "def": 1600,
-    "hp": 16000,
+    "atk": 32751,
+    "def": 3884,
+    "hp": 515129,
     "spd": 110,
-    "skills": []
+    "skills": [
+      {
+        "id": 1,
+        "type": "ACTIVE",
+        "name": "Lightning Chain",
+        "priority": 1,
+        "description": "Fire energy arcs, dealing Energy Damage equal to 408.11% of the Attack.",
+        "cooldown_s": 1.35,
+        "target": "enemy",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 408.11,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": ["Single Target Damage", "Energy Damage", "Burst"]
+      },
+      {
+        "id": 2,
+        "type": "PASSIVE",
+        "name": "Electric Power Boost",
+        "priority": 3,
+        "description": "Boost this hero's Energy Damage by +30.00% in battle.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "energy_damage_percent": 30
+          },
+          "lvl20": {
+            "energy_damage_percent": 39
+          },
+          "lvl40": {
+            "energy_damage_percent": 45
+          }
+        },
+        "key_stats": ["Energy Damage Buff", "Damage Scaling", "Self Buff"]
+      },
+      {
+        "id": 3,
+        "type": "ACTIVE",
+        "name": "Electric Grid Lockdown",
+        "priority": 2,
+        "description": "Deploy a powerful electric attack on 3 back-row units, dealing Energy Damage equal to 1127.02% of Attack.",
+        "cooldown_s": 10,
+        "target": "back_row_enemies",
+        "damage_type": "energy",
+        "scaling": {
+          "lvl1": {
+            "damage_percent": 1127.02,
+            "target_count": 3,
+            "additional_damage_percent": 30
+          },
+          "lvl20": {
+            "damage_percent": 1127.02,
+            "target_count": 3,
+            "additional_damage_percent": 120
+          },
+          "lvl40": {
+            "damage_percent": 1127.02,
+            "target_count": 3,
+            "additional_damage_percent": 270
+          }
+        },
+        "key_stats": [
+          "Back Row Burst",
+          "Energy Damage",
+          "Multi Target Damage",
+          "Assassination"
+        ]
+      },
+      {
+        "id": 4,
+        "type": "ULTIMATE",
+        "name": "Super Sensing",
+        "priority": 4,
+        "description": "Self HP, Attack, and Defense +20% respectively. Skill cooldown rate +10%.",
+        "cooldown_s": null,
+        "target": "self",
+        "damage_type": null,
+        "scaling": {
+          "lvl1": {
+            "atk_percent": 10,
+            "def_percent": 10,
+            "hp_percent": 10,
+            "cooldown_reduction_percent": 5
+          },
+          "lvl20": {
+            "atk_percent": 15,
+            "def_percent": 15,
+            "hp_percent": 15,
+            "cooldown_reduction_percent": 8
+          },
+          "lvl40": {
+            "atk_percent": 20,
+            "def_percent": 20,
+            "hp_percent": 20,
+            "cooldown_reduction_percent": 10
+          }
+        },
+        "key_stats": ["Stat Boost", "Cooldown Reduction", "Self Buff"]
+      }
+    ]
   }
 ]

@@ -1,4 +1,4 @@
-import { DRONE_STAR_TITLES } from "@/constants";
+import { DRONE_STAR_TITLES, STORAGE_BASE_URL } from "@/constants";
 import { SkeletonLoader } from "@/elements/SkeletonLoader";
 import { useDrone } from "@/hooks/useDrone";
 import { getStarTier } from "@/utils/getStarTier";
@@ -16,7 +16,7 @@ export function DroneSlotDisplay({ playerId }: { playerId: number }) {
         <>
           <div className={`absolute top-0 left-0 right-0 h-0.5 rounded-t-xl`} />
           <img
-            src={`https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/drone-td-${getStarTier(data.drone.level) + 1}.png`}
+            src={`${STORAGE_BASE_URL}/drone/drone-td-${getStarTier(data.drone.level) + 1}.png`}
             alt={title}
             className="w-full h-full object-cover"
           />

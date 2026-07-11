@@ -48,6 +48,8 @@ public class Skill {
     private String target;
     private String damageType;
 
+    private String imageUrl;
+
     @ElementCollection
     private List<String> keyStats;
 

@@ -18,4 +18,15 @@ type DroneRequest = {
   droneLevel: number;
 };
 
-export type { DroneComponentRequest, DroneRequest, SquadSlotRequest };
+type AdvisorRequest = {
+  playerSquadId: number;
+  enemySquadId: number;
+  battleId: string;
+};
+
+export type {
+  AdvisorRequest,
+  DroneComponentRequest,
+  DroneRequest,
+  SquadSlotRequest,
+};

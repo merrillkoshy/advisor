@@ -1,3 +1,4 @@
+import { analyze } from "@/api/advisor";
 import { opponentSquadsQuery } from "@/api/opponents";
 import { squadsQuery } from "@/api/squads";
 import { Button } from "@/components/ui/button";
@@ -10,12 +11,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { OPPONENT_ID, PLAYER_ID } from "@/constants";
+import type { AdvisorRequest } from "@/dto";
 import { AnalysisResult } from "@/elements/Advisor/AnalysisResult";
 import { BattlefieldLayout } from "@/elements/Advisor/BattlefieldLayout";
 import { SkeletonLoader } from "@/elements/SkeletonLoader";
 import { useOpponentSquads } from "@/hooks/useOpponentSquads";
 import { useSquads } from "@/hooks/useSquads";
-import type { Squad, SquadSlot } from "@/types";
+import stompClient from "@/lib/stompClient";
+import type {
+  AdvisorResult,
+  DamageEvent,
+  Squad,
+  SquadSlot,
+  TickSnapshot,
+} from "@/types";
+import { useMutation } from "@tanstack/react-query";
 
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -32,10 +42,11 @@ function AdvisorPage() {
   const [selectedSquad, setSelectedSquad] = useState<number>(1);
   const [selectedOpponentSquad, setSelectedOpponentSquad] = useState<number>(1);
 
-  const [result, setResult] = useState<{
-    tier: "cooked" | "coin_flip" | "solid";
-    explanation: string;
-  } | null>(null);
+  const [result, setResult] = useState<AdvisorResult | null>(null);
+  const [currentSnapshot, setCurrentSnapshot] = useState<TickSnapshot | null>(
+    null,
+  );
+  const [allDamageEvents, setAllDamageEvents] = useState<DamageEvent[]>([]);
 
   const { data: playerData, isLoading: isLoadingPlayer } = useSquads({
     playerId: PLAYER_ID,
@@ -44,15 +55,6 @@ function AdvisorPage() {
     useOpponentSquads({
       opponentId: OPPONENT_ID,
     });
-
-  const handleAnalyze = () => {
-    // placeholder until engine is wired
-    setResult({
-      tier: "solid",
-      explanation:
-        "Your air-heavy squad shreds their missile core. Morrison front row melts their Scarlett before she can activate.",
-    });
-  };
 
   const handleChange = (
     fn: (value: React.SetStateAction<number>) => void,
@@ -70,6 +72,39 @@ function AdvisorPage() {
     );
   };
 
+  const { mutate } = useMutation({
+    mutationFn: (request: AdvisorRequest) => analyze(request),
+    onSuccess: (data) => {
+      setResult(data);
+      stompClient.deactivate();
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  const handleAnalyze = () => {
+    setAllDamageEvents([]);
+    setCurrentSnapshot(null);
+    if (!playerData || !opponentData) return;
+    const battleId = crypto.randomUUID();
+
+    stompClient.activate();
+
+    stompClient.onConnect = () => {
+      stompClient.subscribe(`/topic/battle/${battleId}`, (message) => {
+        const snapshot: TickSnapshot = JSON.parse(message.body);
+        setCurrentSnapshot(snapshot);
+        setAllDamageEvents((prev) => [...prev, ...snapshot.damageEvents]);
+      });
+
+      mutate({
+        playerSquadId: selectedSquad,
+        enemySquadId: selectedOpponentSquad,
+        battleId: battleId,
+      });
+    };
+  };
   return (
     <div className="flex flex-col gap-6 p-6 max-w-2xl mx-auto">
       <h1 className="text-sm font-medium text-white/70 tracking-widest uppercase">
@@ -146,6 +181,8 @@ function AdvisorPage() {
       <BattlefieldLayout
         player={getSlot(playerData, selectedSquad)}
         opponent={getSlot(opponentData, selectedOpponentSquad)}
+        snapshot={currentSnapshot}
+        allDamageEvents={allDamageEvents}
       />
 
       {/* Analyze button */}

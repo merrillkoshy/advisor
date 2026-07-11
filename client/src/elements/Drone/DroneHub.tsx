@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { DRONE_STAR_TITLES } from "@/constants";
+import { DRONE_STAR_TITLES, STORAGE_BASE_URL } from "@/constants";
 import { getStarTier } from "@/utils/getStarTier";
 
 type DroneHubProps = {
@@ -19,7 +19,7 @@ export function DroneHub({ level, onLevelChange }: DroneHubProps) {
       </div>
       <div className="w-50 h-50 rounded-full border border-white/15 bg-white/4 flex items-center justify-center">
         <img
-          src={`https://fzyzmcjvvkmmdeuiuoan.supabase.co/storage/v1/object/public/lastwar-assets/drone/drone-td-${tier + 1}.png`}
+          src={`${STORAGE_BASE_URL}/drone/drone-td-${tier + 1}.png`}
           alt={title}
           className="w-50 h-50 object-contain rounded-md"
         />

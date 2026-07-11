@@ -2,6 +2,7 @@
 import { FORMATION_POSITIONS } from "@/constants";
 import { cn } from "@/lib/utils";
 import type { Squad } from "@/types";
+import { getSquadByPosition } from "@/utils/getSquadByPosition";
 
 interface SquadCardProps {
   squad: Squad;
@@ -12,22 +13,13 @@ interface SquadCardProps {
 export function SquadCard({ squad, squadNumber, onClick }: SquadCardProps) {
   // separate front and back from real data
 
-  const frontSlots = squad.slots.filter(
-    (s) => s.position === FORMATION_POSITIONS.FRONT,
-  );
-  const backSlots = squad.slots.filter(
-    (s) => s.position === FORMATION_POSITIONS.BACK,
-  );
-
-  // fill missing slots up to 2 front, 3 back
-  const frontDisplay = Array.from(
-    { length: 2 },
-    (_, i) => frontSlots.find((s) => s.slotIndex === i) ?? null,
-  );
-  const backDisplay = Array.from(
-    { length: 3 },
-    (_, i) => backSlots.find((s) => s.slotIndex === i) ?? null,
-  );
+  const [front1, front2, back1, back2, back3] = [
+    getSquadByPosition(squad.slots, FORMATION_POSITIONS.FRONT_1),
+    getSquadByPosition(squad.slots, FORMATION_POSITIONS.FRONT_2),
+    getSquadByPosition(squad.slots, FORMATION_POSITIONS.BACK_1),
+    getSquadByPosition(squad.slots, FORMATION_POSITIONS.BACK_2),
+    getSquadByPosition(squad.slots, FORMATION_POSITIONS.BACK_3),
+  ];
 
   return (
     <button
@@ -53,20 +45,30 @@ export function SquadCard({ squad, squadNumber, onClick }: SquadCardProps) {
       <div className="space-y-3">
         {/* Front row - 2 slots */}
         <div className="flex justify-center gap-2">
-          {frontDisplay.map((slot, i) => (
-            <div
-              key={i}
-              className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
-            >
-              {slot?.hero?.imageUrl && (
-                <img
-                  src={slot.hero.imageUrl}
-                  alt={slot.hero.name}
-                  className="w-full h-full object-cover"
-                />
-              )}
-            </div>
-          ))}
+          <div
+            key={"front-1"}
+            className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
+          >
+            {front1?.hero?.imageUrl && (
+              <img
+                src={front1.hero.imageUrl}
+                alt={front1.hero.name}
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
+          <div
+            key={"front-2"}
+            className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
+          >
+            {front2?.hero?.imageUrl && (
+              <img
+                src={front2.hero.imageUrl}
+                alt={front2.hero.name}
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
         </div>
       </div>
 
@@ -81,20 +83,42 @@ export function SquadCard({ squad, squadNumber, onClick }: SquadCardProps) {
 
       {/* Back row - 3 slots */}
       <div className="flex justify-center gap-2">
-        {backDisplay.map((slot, i) => (
-          <div
-            key={i}
-            className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
-          >
-            {slot?.hero?.imageUrl && (
-              <img
-                src={slot.hero.imageUrl}
-                alt={slot.hero.name}
-                className="w-full h-full object-cover"
-              />
-            )}
-          </div>
-        ))}
+        <div
+          key={"back-1"}
+          className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
+        >
+          {back1?.hero?.imageUrl && (
+            <img
+              src={back1.hero.imageUrl}
+              alt={back1.hero.name}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
+        <div
+          key={"back-2"}
+          className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
+        >
+          {back2?.hero?.imageUrl && (
+            <img
+              src={back2.hero.imageUrl}
+              alt={back2.hero.name}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
+        <div
+          key={"back-3"}
+          className="h-12 w-12 rounded-lg border border-dashed border-white/10 bg-white/5 overflow-hidden"
+        >
+          {back3?.hero?.imageUrl && (
+            <img
+              src={back3.hero.imageUrl}
+              alt={back3.hero.name}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
       </div>
 
       {/* Edit hint */}

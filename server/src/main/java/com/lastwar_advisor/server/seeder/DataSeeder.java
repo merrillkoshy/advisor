@@ -13,10 +13,12 @@ public class DataSeeder implements ApplicationRunner {
     private final HeroSeeder heroSeeder;
     private final DroneSeeder droneSeeder;
     private final OverlordSeeder overlordSeeder;
+    private final GameConstantSeeder gameConstantSeeder;
 
     public DataSeeder(StatKeySeeder statKeySeeder, HeroSeeder heroSeeder, DroneSeeder droneSeeder,
             OverlordSeeder overlordSeeder,
-            GearSeeder gearSeeder, PlayerSeeder playerSeeder, OpponentSeeder opponentSeeder) {
+            GearSeeder gearSeeder, PlayerSeeder playerSeeder, OpponentSeeder opponentSeeder,
+            GameConstantSeeder gameConstantSeeder) {
         this.statKeySeeder = statKeySeeder;
         this.heroSeeder = heroSeeder;
         this.droneSeeder = droneSeeder;
@@ -24,6 +26,7 @@ public class DataSeeder implements ApplicationRunner {
         this.gearSeeder = gearSeeder;
         this.playerSeeder = playerSeeder;
         this.opponentSeeder = opponentSeeder;
+        this.gameConstantSeeder = gameConstantSeeder;
     }
 
     @Override
@@ -44,6 +47,9 @@ public class DataSeeder implements ApplicationRunner {
         // Personas
         playerSeeder.seedPlayers();
         opponentSeeder.seedOpponents();
+
+        // Game Constants
+        gameConstantSeeder.seedGameConstants();
     }
 
 }
